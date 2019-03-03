@@ -1,0 +1,24 @@
+version: 1.0.0.{build}
+
+platform: Any CPU
+configuration: Release
+
+skip_tags: true
+
+assembly_info:
+  patch: true
+  file: '**\AssemblyInfo.*'
+  assembly_version: "{version}"
+  assembly_file_version: "{version}"
+  assembly_informational_version: "{version}"
+  
+before_build:
+  - nuget restore "./src/Egor92.UINavigation.sln"
+
+build:
+  project: src\Egor92.UINavigation.sln
+  publish_nuget: true
+  
+test:
+  assemblies:
+    - '**\*.Tests.dll'
