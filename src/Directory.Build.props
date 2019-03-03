@@ -1,0 +1,13 @@
+<Project>
+  <PropertyGroup>
+    <Version />
+    <FileVersion />
+    <InformationalVersion />
+    <Authors>Egor92</Authors>
+    <Company>Egor92</Company>
+    <Copyright>Copyright © Egor92 2019</Copyright>
+    <PackageProjectUrl>https://github.com/Egor92/UINavigation</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/Egor92/UINavigation/blob/master/LICENSE</PackageLicenseUrl>
+    <RepositoryUrl>https://github.com/Egor92/UINavigation</RepositoryUrl>
+  </PropertyGroup>
+</Project>

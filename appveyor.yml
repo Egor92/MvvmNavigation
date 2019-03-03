@@ -1,17 +1,25 @@
-version: 0.1.0.{build}
+environment:
+  assembly_version: 0.1.0
+  assembly_file_version: '$(assembly_version).$(appveyor_build_number)'
+  assembly_informational_version: '$(assembly_file_version)'
 
+version: 'build-{build}'
 skip_tags: true
 
 skip_commits:
   files:
     - '**/*.md'
     
-assembly_info:
+init:
+#  - cmd: appveyor UpdateBuild -Version %assembly_informational_version%
+ - ps: appveyor UpdateBuild -Version $env:assembly_informational_version
+  
+dotnet_csproj:
   patch: true
-  file: '**\AssemblyInfo.*'
-  assembly_version: "{version}"
-  assembly_file_version: "{version}"
-  assembly_informational_version: "{version}"
+  file: '**\*.props'
+  version: '$(assembly_version)'
+  file_version: '$(assembly_file_version)'
+  informational_version: '$(assembly_informational_version)'
   
 before_build:
   - nuget restore "./src/UINavigation.sln"
@@ -28,3 +36,7 @@ build:
 test:
   assemblies:
     - '**\*.Tests.dll'
+
+artifacts:  
+  - path: /.*\.nupkg/
+    name: NuGet package
