@@ -17,9 +17,11 @@ before_build:
   - nuget restore "./src/UINavigation.sln"
 
 image: Visual Studio 2017
-
 platform: Any CPU
 configuration: Release
+
+environment:
+  CODECOV_TOKEN: bbe39add-7bd2-4ba9-a132-ea9aa21b5ac9
 
 build:
   project: src\UINavigation.sln
