@@ -1,4 +1,4 @@
-version: 1.0.0.{build}
+version: 0.1.0.{build}
 
 platform: Any CPU
 configuration: Release
@@ -13,11 +13,13 @@ assembly_info:
   assembly_informational_version: "{version}"
   
 before_build:
-  - nuget restore "./src/Egor92.UINavigation.sln"
+  - nuget restore "./src/UINavigation.sln"
+
+image: Visual Studio 2017
 
 build:
-  project: src\Egor92.UINavigation.sln
-  publish_nuget: true
+  project: src\UINavigation.sln
+#  publish_nuget: true
   
 test:
   assemblies:
