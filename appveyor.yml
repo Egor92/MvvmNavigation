@@ -1,5 +1,5 @@
 environment:
-  assembly_version: 0.1.0
+  assembly_version: 0.2.0
   assembly_file_version: '$(assembly_version).$(appveyor_build_number)'
   assembly_informational_version: '$(assembly_file_version)'
 
@@ -44,8 +44,8 @@ deploy:
   # Deploying to NuGet feed
   - provider: NuGet
     api_key:
-      secure:Kra5/PjHA5dEaMai54+n3E8KiVzKzru/dxganB97zmB9RfxppKop4E6VWRTOT0Rm
+      secure: /zlgAULNUIf8YfF79Evrhtxd80gUeN48+5YPJ/tFlkgrC+yfAUmWC42CA+4zKa8+
     skip_symbols: true
-    artifact: '**\*.nupkg'
+    artifact: /.*\.nupkg/
     on:
       branch: master
