@@ -3,6 +3,7 @@
     <TargetFramework>net472</TargetFramework>
     <RootNamespace>Egor92.UINavigation.Wpf</RootNamespace>
     <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\UINavigation.Abstractions\UINavigation.Abstractions.csproj" />
