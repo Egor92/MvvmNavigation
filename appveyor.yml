@@ -1,0 +1,51 @@
+environment:
+  assembly_version: 1.0.0
+  assembly_file_version: '$(assembly_version).$(appveyor_build_number)'
+  assembly_informational_version: '$(assembly_file_version)'
+
+version: 'build-{build}'
+skip_tags: true
+
+skip_commits:
+  files:
+    - '**/*.md'
+    
+init:
+#  - cmd: appveyor UpdateBuild -Version %assembly_informational_version%
+ - ps: appveyor UpdateBuild -Version $env:assembly_informational_version
+  
+dotnet_csproj:
+  patch: true
+  file: '**\*.props'
+  version: '$(assembly_version)'
+  file_version: '$(assembly_file_version)'
+  informational_version: '$(assembly_informational_version)'
+  
+before_build:
+  - nuget restore "./src/UINavigation.sln"
+
+image: Visual Studio 2017
+
+platform: Any CPU
+configuration: Release
+
+build:
+  project: src\UINavigation.sln
+  
+test:
+  assemblies:
+    - '**\*.Tests.dll'
+
+artifacts:  
+  - path: '**\*.nupkg'
+    name: NuGet package
+    
+deploy:
+  # Deploying to NuGet feed
+  - provider: NuGet
+    api_key:
+      secure: /zlgAULNUIf8YfF79Evrhtxd80gUeN48+5YPJ/tFlkgrC+yfAUmWC42CA+4zKa8+
+    skip_symbols: true
+    artifact: /.*\.nupkg/
+    on:
+      branch: master

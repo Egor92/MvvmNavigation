@@ -1,0 +1,14 @@
+<Project>
+  <PropertyGroup>
+    <Version />
+    <FileVersion />
+    <InformationalVersion />
+    <Authors>Egor92</Authors>
+    <Company>Egor92</Company>
+    <Trademark>$(Company)™</Trademark>
+    <Copyright>Copyright © $(Company) $([System.DateTime]::Now.Year)</Copyright>
+    <PackageProjectUrl>https://github.com/Egor92/UINavigation</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/Egor92/UINavigation/blob/master/LICENSE</PackageLicenseUrl>
+    <RepositoryUrl>https://github.com/Egor92/UINavigation</RepositoryUrl>
+  </PropertyGroup>
+</Project>
