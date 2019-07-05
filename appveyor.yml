@@ -13,8 +13,8 @@ skip_commits:
     - '**/*.md'
     
 init:
-#  - cmd: appveyor UpdateBuild -Version %assembly_informational_version%
-# - ps: appveyor UpdateBuild -Version $env:assembly_informational_version
+# - cmd: appveyor UpdateBuild -Version %assembly_informational_version%
+  - ps: appveyor UpdateBuild -Version $env:assembly_informational_version
   
 dotnet_csproj:
   patch: true

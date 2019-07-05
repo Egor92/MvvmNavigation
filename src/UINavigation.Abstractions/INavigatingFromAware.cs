@@ -1,9 +1,7 @@
 ﻿namespace Egor92.UINavigation.Abstractions
 {
-    public interface INavigationAware
+    public interface INavigatingFromAware
     {
-        void OnNavigatingTo(object arg);
-
         void OnNavigatingFrom();
     }
 }
