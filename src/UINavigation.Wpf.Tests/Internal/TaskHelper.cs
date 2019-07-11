@@ -6,6 +6,15 @@ namespace Egor92.UINavigation.Wpf.Tests.Internal
 {
     internal static class TaskHelper
     {
+        internal static Task StartTaskWithApartmentState(ApartmentState apartmentState, Action action)
+        {
+            return StartTaskWithApartmentState<object>(apartmentState, () =>
+            {
+                action();
+                return null;
+            });
+        }
+
         internal static Task<T> StartTaskWithApartmentState<T>(ApartmentState apartmentState, Func<T> func)
         {
             var tcs = new TaskCompletionSource<T>();
@@ -21,6 +30,7 @@ namespace Egor92.UINavigation.Wpf.Tests.Internal
                 }
             });
             thread.SetApartmentState(apartmentState);
+            thread.Name = $"Thread({apartmentState})";
             thread.Start();
             return tcs.Task;
         }
