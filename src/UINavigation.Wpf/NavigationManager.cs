@@ -25,9 +25,19 @@ namespace Egor92.UINavigation.Wpf
 
         #endregion
 
-        public void Register<TViewModel, TView>(string navigationKey, Func<TViewModel> viewModelFunc)
-            where TViewModel : class
-            where TView : FrameworkElement
+        #region Navigated
+
+        public event EventHandler<NavigationEventArgs> Navigated;
+
+        private void RaiseNavigated(NavigationEventArgs e)
+        {
+            Navigated?.Invoke(this, e);
+        }
+
+        #endregion
+
+        public void Register<TView>(string navigationKey, Func<object> viewModelFunc)
+            where TView : FrameworkElement, new()
         {
             if (navigationKey == null)
                 throw new ArgumentNullException(nameof(navigationKey));
@@ -59,18 +69,29 @@ namespace Egor92.UINavigation.Wpf
                 var view = CreateNewView(navigationKey, viewModel);
                 _frameControl.Content = view;
                 InvokeNavigatedTo(viewModel, arg);
+
+                var navigationEventArgs = new NavigationEventArgs(view, viewModel, navigationKey, arg);
+                RaiseNavigated(navigationEventArgs);
             });
         }
 
         private void InvokeInMainThread(Action action)
         {
-            _frameControl.Dispatcher.Invoke(action);
+            var dispatcher = _frameControl.Dispatcher;
+            if (dispatcher.CheckAccess())
+            {
+                action();
+            }
+            else
+            {
+                dispatcher.Invoke(action);
+            }
         }
 
         private FrameworkElement CreateNewView(string navigationKey, object viewModel)
         {
-            var viewType = _navigationDatasByKey[navigationKey]
-                .ViewType;
+            var navigationData = _navigationDatasByKey[navigationKey];
+            var viewType = navigationData.ViewType;
             var view = (FrameworkElement) Activator.CreateInstance(viewType);
             view.DataContext = viewModel;
             return view;
