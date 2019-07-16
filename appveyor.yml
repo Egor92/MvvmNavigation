@@ -8,9 +8,10 @@ environment:
 version: 'build-{build}'
 skip_tags: true
 
-skip_commits:
+only_commits:
   files:
-    - '**/*.md'
+    - src/
+    - appveyor.yml
     
 init:
 # - cmd: appveyor UpdateBuild -Version %assembly_informational_version%
@@ -56,5 +57,5 @@ on_success:
   - ps: |
       if ($env:appveyor_repo_branch -eq 'master')
       {
-        .\scripts\PushTagOfAssemblyVersion.ps1
+        .\scripts\PushTag_AssemblyVersion_ToMaster.ps1
       }
