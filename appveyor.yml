@@ -1,18 +1,21 @@
 environment:
-  assembly_version: 1.0.0
+  assembly_version: 2.0.0
   assembly_file_version: '$(assembly_version).$(appveyor_build_number)'
   assembly_informational_version: '$(assembly_file_version)'
+  access_token:
+    secure: 9NnzZ3Lxb6tEEXalTFO7eHW91jbsWpxeWyVQpWudDukFYr1oFvM7MIJvVBawcFJg
 
 version: 'build-{build}'
 skip_tags: true
 
-skip_commits:
+only_commits:
   files:
-    - '**/*.md'
+    - code/
+    - appveyor.yml
     
 init:
-#  - cmd: appveyor UpdateBuild -Version %assembly_informational_version%
- - ps: appveyor UpdateBuild -Version $env:assembly_informational_version
+# - cmd: appveyor UpdateBuild -Version %assembly_informational_version%
+  - ps: appveyor UpdateBuild -Version $env:assembly_informational_version
   
 dotnet_csproj:
   patch: true
@@ -20,17 +23,17 @@ dotnet_csproj:
   version: '$(assembly_version)'
   file_version: '$(assembly_file_version)'
   informational_version: '$(assembly_informational_version)'
-  
-before_build:
-  - nuget restore "./src/UINavigation.sln"
 
 image: Visual Studio 2017
 
 platform: Any CPU
-configuration: Release
+configuration: Release  
+
+before_build:
+  - nuget restore "./code/UINavigation.sln"
 
 build:
-  project: src\UINavigation.sln
+  project: code\UINavigation.sln
   
 test:
   assemblies:
@@ -49,3 +52,10 @@ deploy:
     artifact: /.*\.nupkg/
     on:
       branch: master
+
+on_success: 
+  - ps: |
+      if ($env:appveyor_repo_branch -eq 'master')
+      {
+        .\scripts\PushTag_AssemblyVersion_ToMaster.ps1
+      }
