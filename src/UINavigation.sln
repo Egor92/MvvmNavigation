@@ -16,7 +16,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Source", "Source", "{E31339
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{A9E06829-D8AA-4575-9CA9-8BE4930F2573}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UINavigation.Wpf.Tests", "UINavigation.Wpf.Tests\UINavigation.Wpf.Tests.csproj", "{65E62DB0-2865-4762-B961-5139E1A831E7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UINavigation.Wpf.Tests", "UINavigation.Wpf.Tests\UINavigation.Wpf.Tests.csproj", "{65E62DB0-2865-4762-B961-5139E1A831E7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
