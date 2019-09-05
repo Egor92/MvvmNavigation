@@ -10,7 +10,7 @@ skip_tags: true
 
 only_commits:
   files:
-    - src/
+    - code/
     - appveyor.yml
     
 init:
@@ -30,10 +30,10 @@ platform: Any CPU
 configuration: Release  
 
 before_build:
-  - nuget restore "./src/UINavigation.sln"
+  - nuget restore "./code/UINavigation.sln"
 
 build:
-  project: src\UINavigation.sln
+  project: code\UINavigation.sln
   
 test:
   assemblies:
