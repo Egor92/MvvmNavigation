@@ -8,28 +8,28 @@
 [![License](https://img.shields.io/github/license/Egor92/UINavigation.svg)](https://github.com/Egor92/UINavigation/blob/master/LICENSE)
 [![Join the Gitter chat!](https://badges.gitter.im/Egor92/UINavigation.svg)](https://gitter.im/UINavigation/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-Перейти на [русскую страницу](https://github.com/Egor92/UINavigation/blob/master/README.RUS.md)
+Go to [english page](https://github.com/Egor92/UINavigation/blob/master/README.md)
 
-This library allows you to adjust navigation behavior in your WPF application and implement ViewModel-based navigation. This library completely adhere to MVVM pattern.
+Данная библиотека позволяет настраивать поведение навигации вашего WPF приложения и реализовать навигацию на уровне слоя ViewModel. Библиотека полностью придерживается паттерна MVVM.
 
-## How to use it
+## Как использовать
 
-1. Install NuGet package [UINavigation.Wpf](https://www.nuget.org/packages/UINavigation.Wpf/ "UINavigation.Wpf")
-1. Use the following code in your project:
+1. Установите NuGet пакет [UINavigation.Wpf](https://www.nuget.org/packages/UINavigation.Wpf/ "UINavigation.Wpf")
+1. Используйте следующий код в вашем проекте:
 
 ```csharp
-//1. Create navigation manager
+//1. Создайте менеджера навигации
 var navigationManager = new NavigationManager(window);
 
-//2. Register set of navigation key, view and viewmodel
+//2. Зарегистрируйте набор: ключ навигации, View и ViewModel
 navigationManager.Register<FirstView>(NavigationKeys.First, () => new FirstViewModel());
 navigationManager.Register<SecondView>(NavigationKeys.Second, () => new SecondViewModel());
 
-//3. In any place call Navigate method in order to switch UI
+//3. В любом месте вызовите метод Navigate, чтобы сменить пользовательский интерфейс на другой
 navigationManager.Navigate(NavigationKeys.First);
 ```
 
-This code should be placed in composition root. It is **App.OnStartup** method usually:
+Данный код должен быть размещён точке сборки приложения. Обычно это метод **App.OnStartup**:
 
 ```csharp
 public partial class App : Application
