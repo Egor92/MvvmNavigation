@@ -60,7 +60,8 @@ namespace Egor92.UINavigation.Wpf.Tests
             Func<object> viewFunc = () => _view;
 
             //Act
-            TestDelegate action = () =>
+            TestDelegate action;
+            action = () =>
             {
                 _navigationManager.Register(null, viewModelFunc, viewFunc);
             };
