@@ -5,6 +5,10 @@
     <RootNamespace>Egor92.UINavigation.Wpf</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="JetBrains.Annotations" Version="2019.1.3" />
+  </ItemGroup>
   
   <ItemGroup>
     <ProjectReference Include="..\UINavigation.Abstractions\UINavigation.Abstractions.csproj" />

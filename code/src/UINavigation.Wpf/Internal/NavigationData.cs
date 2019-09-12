@@ -2,16 +2,16 @@
 
 namespace Egor92.UINavigation.Wpf.Internal
 {
-    internal class NavigationData
+    internal sealed class NavigationData
     {
-        public NavigationData(Func<object> viewModelFunc, Type viewType)
+        internal NavigationData(Func<object> viewModelFunc, Func<object> viewFunc)
         {
             ViewModelFunc = viewModelFunc;
-            ViewType = viewType;
+            ViewFunc = viewFunc;
         }
 
         internal Func<object> ViewModelFunc { get; }
 
-        internal Type ViewType { get; }
+        internal Func<object> ViewFunc { get; }
     }
 }

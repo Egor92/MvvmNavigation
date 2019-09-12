@@ -19,12 +19,14 @@ namespace Egor92.UINavigation.Wpf.Tests
     {
         private NavigationManager _navigationManager;
         private ContentControl _frameControl;
+        private FrameworkElement _view;
 
         [SetUp]
         public void SetUp()
         {
             _frameControl = new ContentControl();
             _navigationManager = new NavigationManager(_frameControl);
+            _view = Mock.Of<FrameworkElement>();
         }
 
         [Test]
@@ -36,7 +38,7 @@ namespace Egor92.UINavigation.Wpf.Tests
             var navigationKey = "navigationKey";
             var viewModel = new object();
             _navigationManager = await TaskHelper.StartTaskWithApartmentState(apartmentState, () => new NavigationManager(_frameControl));
-            _navigationManager.Register<TestControl>(navigationKey, () => viewModel);
+            _navigationManager.Register(navigationKey, () => viewModel, () => _view);
 
             //Act
             TestDelegate action = () =>
@@ -46,39 +48,61 @@ namespace Egor92.UINavigation.Wpf.Tests
 
             //Assert
             Assert.That(action, Throws.Nothing);
-            Assert.That(_frameControl.Content, Is.TypeOf<TestControl>());
+            Assert.That(_frameControl.Content, Is.EqualTo(_view));
         }
 
+        [SuppressMessage("ReSharper", "AssignNullToNotNullAttribute")]
         [Test]
         public void Register_NavigationKeyIsNull_ThrowException()
         {
             //Arrange
             Func<object> viewModelFunc = () => new object();
+            Func<object> viewFunc = () => _view;
 
             //Act
             TestDelegate action = () =>
             {
-                _navigationManager.Register<ContentControl>(null, viewModelFunc);
+                _navigationManager.Register(null, viewModelFunc, viewFunc);
             };
 
             //Assert
             Assert.That(action, ThrowsException.NullArgument("navigationKey"));
         }
 
+        [SuppressMessage("ReSharper", "AssignNullToNotNullAttribute")]
         [Test]
         public void Register_ViewModelFuncIsNull_ThrowException()
         {
             //Arrange
             var navigationKey = "navigationKey";
+            Func<object> viewFunc = () => _view;
 
             //Act
             TestDelegate action = () =>
             {
-                _navigationManager.Register<ContentControl>(navigationKey, null);
+                _navigationManager.Register(navigationKey, null, viewFunc);
             };
 
             //Assert
-            Assert.That(action, ThrowsException.NullArgument(ArgumentNames.ViewModelFunc));
+            Assert.That(action, ThrowsException.NullArgument(ArgumentNames.GetViewModel));
+        }
+
+        [SuppressMessage("ReSharper", "AssignNullToNotNullAttribute")]
+        [Test]
+        public void Register_ViewFuncIsNull_ThrowException()
+        {
+            //Arrange
+            var navigationKey = "navigationKey";
+            Func<object> viewModelFunc = () => new object();
+
+            //Act
+            TestDelegate action = () =>
+            {
+                _navigationManager.Register(navigationKey, viewModelFunc, null);
+            };
+
+            //Assert
+            Assert.That(action, ThrowsException.NullArgument(ArgumentNames.GetView));
         }
 
         [Test]
@@ -87,18 +111,20 @@ namespace Egor92.UINavigation.Wpf.Tests
             //Arrange
             var navigationKey = "navigationKey";
             Func<object> viewModelFunc = () => new object();
+            Func<object> viewFunc = () => _view;
 
             //Act
-            _navigationManager.Register<ContentControl>(navigationKey, viewModelFunc);
+            _navigationManager.Register(navigationKey, viewModelFunc, viewFunc);
             TestDelegate action = () =>
             {
-                _navigationManager.Register<ContentControl>(navigationKey, viewModelFunc);
+                _navigationManager.Register(navigationKey, viewModelFunc, viewFunc);
             };
 
             //Assert
             Assert.That(action, ThrowsException.CanNotRegisterKeyTwice());
         }
 
+        [SuppressMessage("ReSharper", "AssignNullToNotNullAttribute")]
         [Test]
         public void Navigate_KeyIsNull_ThrowException()
         {
@@ -137,13 +163,13 @@ namespace Egor92.UINavigation.Wpf.Tests
             //Arrange
             var navigationKey = "navigationKey";
             var viewModel = new object();
-            _navigationManager.Register<TestControl>(navigationKey, () => viewModel);
+            _navigationManager.Register(navigationKey, () => viewModel, () => _view);
 
             //Act
             _navigationManager.Navigate(navigationKey);
 
             //Assert
-            Assert.That(_frameControl.Content, Is.TypeOf<TestControl>());
+            Assert.That(_frameControl.Content, Is.EqualTo(_view));
             var dataContext = ((FrameworkElement) _frameControl.Content).DataContext;
             Assert.That(dataContext, Is.EqualTo(viewModel));
         }
@@ -156,9 +182,7 @@ namespace Egor92.UINavigation.Wpf.Tests
             //Arrange
             var navigationKey = "navigationKey";
             var viewModel = new Mock<INavigatedToAware>();
-            viewModel.Setup(x => x.OnNavigatedTo(navigationArg))
-                     .Verifiable();
-            _navigationManager.Register<TestControl>(navigationKey, () => viewModel.Object);
+            _navigationManager.Register(navigationKey, () => viewModel.Object, () => _view);
 
             //Act
             navigate(_navigationManager, navigationKey, navigationArg);
@@ -198,8 +222,8 @@ namespace Egor92.UINavigation.Wpf.Tests
             var viewModel = new Mock<INavigatingFromAware>();
             viewModel.Setup(x => x.OnNavigatingFrom())
                      .Verifiable();
-            _navigationManager.Register<TestControl>(navigationKey1, () => viewModel.Object);
-            _navigationManager.Register<TestControl>(navigationKey2, () => new object());
+            _navigationManager.Register(navigationKey1, () => viewModel.Object, () => _view);
+            _navigationManager.Register(navigationKey2, () => new object(), () => _view);
 
             //Act
             _navigationManager.Navigate(navigationKey1);
@@ -214,7 +238,7 @@ namespace Egor92.UINavigation.Wpf.Tests
         {
             //Arrange
             var navigationKey = "navigationKey";
-            _navigationManager.Register<TestControl>(navigationKey, () => new object());
+            _navigationManager.Register(navigationKey, () => new object(), () => _view);
 
             bool isNavigatedRaised = false;
             _navigationManager.Navigated += (sender, e) =>
@@ -234,7 +258,7 @@ namespace Egor92.UINavigation.Wpf.Tests
         {
             //Arrange
             var navigationKey = "navigationKey";
-            _navigationManager.Register<TestControl>(navigationKey, () => new object());
+            _navigationManager.Register(navigationKey, () => new object(), () => _view);
 
             object eventSender = null;
             _navigationManager.Navigated += (sender, e) =>
@@ -256,7 +280,7 @@ namespace Egor92.UINavigation.Wpf.Tests
             var navigationKey = "navigationKey";
             var navigationArg = new object();
             var viewModel = new object();
-            _navigationManager.Register<TestControl>(navigationKey, () => viewModel);
+            _navigationManager.Register(navigationKey, () => viewModel, () => _view);
 
             NavigationEventArgs eventArgs = null;
             _navigationManager.Navigated += (sender, e) =>
@@ -268,11 +292,14 @@ namespace Egor92.UINavigation.Wpf.Tests
             _navigationManager.Navigate(navigationKey, navigationArg);
 
             //Assert
-            Assert.That(eventArgs, Is.Not.Null);
-            Assert.That(eventArgs.View, Is.TypeOf<TestControl>());
-            Assert.That(eventArgs.ViewModel, Is.EqualTo(viewModel));
-            Assert.That(eventArgs.NavigationKey, Is.EqualTo(navigationKey));
-            Assert.That(eventArgs.NavigationArg, Is.EqualTo(navigationArg));
+            Assert.Multiple(() =>
+            {
+                Assert.That(eventArgs, Is.Not.Null);
+                Assert.That(eventArgs.View, Is.EqualTo(_view));
+                Assert.That(eventArgs.ViewModel, Is.EqualTo(viewModel));
+                Assert.That(eventArgs.NavigationKey, Is.EqualTo(navigationKey));
+                Assert.That(eventArgs.NavigationArg, Is.EqualTo(navigationArg));
+            });
         }
     }
 }
