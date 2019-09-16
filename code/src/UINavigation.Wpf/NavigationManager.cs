@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using Egor92.UINavigation.Abstractions;
@@ -13,7 +12,7 @@ namespace Egor92.UINavigation.Wpf
         #region Fields
 
         private readonly ContentControl _frameControl;
-        private readonly IDictionary<string, NavigationData> _navigationDataByKey = new Dictionary<string, NavigationData>();
+        private readonly IDataStorage _dataStorage;
 
         #endregion
 
@@ -22,6 +21,7 @@ namespace Egor92.UINavigation.Wpf
         public NavigationManager([NotNull] ContentControl frameControl)
         {
             _frameControl = frameControl ?? throw new ArgumentNullException(nameof(frameControl));
+            _dataStorage = new DataStorage();
         }
 
         #endregion
@@ -48,11 +48,12 @@ namespace Egor92.UINavigation.Wpf
             if (getView == null)
                 throw new ArgumentNullException(nameof(getView));
 
-            var isKeyAlreadyRegistered = _navigationDataByKey.ContainsKey(navigationKey);
+            var isKeyAlreadyRegistered = _dataStorage.IsExist(navigationKey);
             if (isKeyAlreadyRegistered)
                 throw new InvalidOperationException(ExceptionMessages.CanNotRegisterKeyTwice);
 
-            _navigationDataByKey[navigationKey] = new NavigationData(getViewModel, getView);
+            var navigationData = new NavigationData(getViewModel, getView);
+            _dataStorage.Add(navigationKey, navigationData);
         }
 
         public void Navigate(string navigationKey, object arg = null)
@@ -60,16 +61,16 @@ namespace Egor92.UINavigation.Wpf
             if (navigationKey == null)
                 throw new ArgumentNullException(nameof(navigationKey));
 
-            var isKeyRegistered = _navigationDataByKey.ContainsKey(navigationKey);
+            var isKeyRegistered = _dataStorage.IsExist(navigationKey);
             if (!isKeyRegistered)
                 throw new InvalidOperationException(ExceptionMessages.KeyIsNotRegistered(navigationKey));
 
             InvokeInMainThread(() =>
             {
                 InvokeNavigatedFrom();
-                var viewModel = GetNewViewModel(navigationKey);
+                var viewModel = GetViewModel(navigationKey);
 
-                var view = CreateNewView(navigationKey, viewModel);
+                var view = CreateView(navigationKey, viewModel);
                 _frameControl.Content = view;
                 InvokeNavigatedTo(viewModel, arg);
 
@@ -91,9 +92,9 @@ namespace Egor92.UINavigation.Wpf
             }
         }
 
-        private object CreateNewView(string navigationKey, object viewModel)
+        private object CreateView(string navigationKey, object viewModel)
         {
-            var navigationData = _navigationDataByKey[navigationKey];
+            var navigationData = _dataStorage.Get(navigationKey);
             var view = navigationData.ViewFunc();
             if (view is FrameworkElement frameworkElement)
             {
@@ -103,9 +104,9 @@ namespace Egor92.UINavigation.Wpf
             return view;
         }
 
-        private object GetNewViewModel(string navigationKey)
+        private object GetViewModel(string navigationKey)
         {
-            var navigationData = _navigationDataByKey[navigationKey];
+            var navigationData = _dataStorage.Get(navigationKey);
             return navigationData.ViewModelFunc();
         }
 
