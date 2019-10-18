@@ -24,7 +24,7 @@ dotnet_csproj:
   file_version: '$(assembly_file_version)'
   informational_version: '$(assembly_informational_version)'
 
-image: Visual Studio 2017
+image: Visual Studio 2019
 
 platform: Any CPU
 configuration: Release  
@@ -47,7 +47,7 @@ deploy:
   # Deploying to NuGet feed
   - provider: NuGet
     api_key:
-      secure: /zlgAULNUIf8YfF79Evrhtxd80gUeN48+5YPJ/tFlkgrC+yfAUmWC42CA+4zKa8+
+      secure: jNJdXGXWnQdzWrDY8I6K6neZ6dJPNr0TpgD808ZA6qz5s5eJ/+X3AJgglo/QCZJQ
     skip_symbols: true
     artifact: /.*\.nupkg/
     on:
