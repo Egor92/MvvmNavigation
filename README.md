@@ -17,33 +17,56 @@ This library allows you to adjust navigation behavior in your WPF application an
 1. Install NuGet package [UINavigation.Wpf](https://www.nuget.org/packages/UINavigation.Wpf/ "UINavigation.Wpf")
 1. Use the following code in your project:
 
-```csharp
-//1. Create navigation manager
-var navigationManager = new NavigationManager(window);
+    ```csharp
+    //1. Create navigation manager
+    var navigationManager = new NavigationManager(window);
 
-//2. Register set of navigation key, view and viewmodel
-navigationManager.Register<FirstView>(NavigationKeys.First, () => new FirstViewModel());
-navigationManager.Register<SecondView>(NavigationKeys.Second, () => new SecondViewModel());
+    //2. Define navigation rules: register key and corresponding view and viewmodel for it
+    navigationManager.Register<FirstView>("FirstKey", () => new FirstViewModel(navigationManager));
+    navigationManager.Register<SecondView>("SecondKey", () => new SecondViewModel(navigationManager));
 
-//3. In any place call Navigate method in order to switch UI
-navigationManager.Navigate(NavigationKeys.First);
-```
+    //3. In any place call Navigate method in order to switch UI
+    navigationManager.Navigate("FirstKey");
+    ```
 
-This code should be placed in composition root. It is **App.OnStartup** method usually:
+    This code should be placed in composition root. It is **App.OnStartup** method usually:
 
-```csharp
-public partial class App : Application
-{
-	protected override void OnStartup(StartupEventArgs e)
-	{
-		var window = new MainWindow();
-		var navigationManager = new NavigationManager(window);
+    ```csharp
+    public partial class App : Application
+    {
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            var window = new MainWindow();
+            var navigationManager = new NavigationManager(window);
 
-		navigationManager.Register<FirstView>(NavigationKeys.First, () => new FirstViewModel());
-		navigationManager.Register<SecondView>(NavigationKeys.Second, () => new SecondViewModel());
+            navigationManager.Register<FirstView>("FirstKey", () => new FirstViewModel(navigationManager));
+            navigationManager.Register<SecondView>("SecondKey", () => new SecondViewModel(navigationManager));
 
-		navigationManager.Navigate(NavigationKeys.First);
-		window.Show();
-	}
-}
-```
+            navigationManager.Navigate("FirstKey");
+            window.Show();
+        }
+    }
+    ```
+
+1. Pass navigation manager to your ViewModel and call Navigate method in the required place in order to switch to other UI
+
+    ```csharp
+    public class FirstViewModel : ViewModelBase
+    {
+        private readonly INavigationManager _navigationManager;
+
+        public FirstViewModel(INavigationManager navigationManager)
+        {
+            _navigationManager = navigationManager;
+            GoToSecondPageCommand = new DelegateCommand(GoToSecondPage);
+        }
+
+        public ICommand GoToSecondPageCommand { get; }
+
+        private void GoToSecondPage()
+        {
+            //Switch to second UI
+            _navigationManager.Navigate("SecondKey");
+        }
+    }
+    ```
