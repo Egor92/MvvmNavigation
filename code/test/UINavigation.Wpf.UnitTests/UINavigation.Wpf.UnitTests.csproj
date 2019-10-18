@@ -2,18 +2,19 @@
 
   <PropertyGroup>
     <TargetFramework>net472</TargetFramework>
-    <RootNamespace>Egor92.UINavigation.Wpf.Tests</RootNamespace>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Moq" Version="4.13.0" />
+    <PackageReference Include="Moq" Version="4.13.1" />
     <PackageReference Include="nunit" Version="3.12.0" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.2.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.3.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\UINavigation.Wpf\UINavigation.Wpf.csproj" />
+    <ProjectReference Include="..\UINavigation.Abstractions.ContractTests\UINavigation.Abstractions.ContractTests.csproj" />
+    <ProjectReference Include="..\UINavigation.Wpf.ContractTests\UINavigation.Wpf.ContractTests.csproj" />
   </ItemGroup>
 
   <ItemGroup>

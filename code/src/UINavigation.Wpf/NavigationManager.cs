@@ -19,9 +19,14 @@ namespace Egor92.UINavigation.Wpf
         #region Ctor
 
         public NavigationManager([NotNull] ContentControl frameControl)
+            : this(frameControl, new DataStorage())
+        {
+        }
+
+        public NavigationManager([NotNull] ContentControl frameControl, [NotNull] IDataStorage dataStorage)
         {
             _frameControl = frameControl ?? throw new ArgumentNullException(nameof(frameControl));
-            _dataStorage = new DataStorage();
+            _dataStorage = dataStorage ?? throw new ArgumentNullException(nameof(dataStorage));
         }
 
         #endregion
@@ -56,12 +61,17 @@ namespace Egor92.UINavigation.Wpf
             _dataStorage.Add(navigationKey, navigationData);
         }
 
-        public void Navigate(string navigationKey, object arg = null)
+        public bool CanNavigate(string navigationKey)
+        {
+            return _dataStorage.IsExist(navigationKey);
+        }
+
+        public void Navigate(string navigationKey, object arg)
         {
             if (navigationKey == null)
                 throw new ArgumentNullException(nameof(navigationKey));
 
-            var isKeyRegistered = _dataStorage.IsExist(navigationKey);
+            var isKeyRegistered = CanNavigate(navigationKey);
             if (!isKeyRegistered)
                 throw new InvalidOperationException(ExceptionMessages.KeyIsNotRegistered(navigationKey));
 

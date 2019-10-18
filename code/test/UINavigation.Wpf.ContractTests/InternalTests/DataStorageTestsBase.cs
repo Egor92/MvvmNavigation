@@ -1,11 +1,11 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using Egor92.UINavigation.Wpf.Internal;
-using Egor92.UINavigation.Wpf.Tests.Internal;
+using Egor92.UINavigation.Tests.Common;
+using Egor92.UINavigation.Wpf.ContractTests.Internal;
 using NUnit.Framework;
 
-namespace Egor92.UINavigation.Wpf.Tests.InternalTests
+namespace Egor92.UINavigation.Wpf.ContractTests.InternalTests
 {
-    internal abstract class DataStorageTestsBase<TDataStorage>
+    public abstract class DataStorageTestsBase<TDataStorage>
         where TDataStorage : IDataStorage
 
     {
@@ -13,7 +13,7 @@ namespace Egor92.UINavigation.Wpf.Tests.InternalTests
         private NavigationData _navigationData;
 
         [SetUp]
-        public void SetUp()
+        public virtual void SetUp()
         {
             _dataStorage = CreateDataStorage();
             _navigationData = new NavigationData(() => new object(), () => new object());

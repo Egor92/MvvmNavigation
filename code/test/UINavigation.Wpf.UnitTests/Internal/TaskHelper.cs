@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Egor92.UINavigation.Wpf.Tests.Internal
+namespace Egor92.UINavigation.Wpf.UnitTests.Internal
 {
     internal static class TaskHelper
     {

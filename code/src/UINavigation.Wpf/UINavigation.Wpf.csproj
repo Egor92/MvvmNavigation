@@ -2,7 +2,6 @@
 
   <PropertyGroup>
     <TargetFramework>net472</TargetFramework>
-    <RootNamespace>Egor92.UINavigation.Wpf</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 

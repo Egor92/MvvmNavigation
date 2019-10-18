@@ -1,7 +1,8 @@
-﻿using Egor92.UINavigation.Wpf.Internal;
+﻿using Egor92.UINavigation.Wpf.ContractTests.InternalTests;
+using Egor92.UINavigation.Wpf.Internal;
 using NUnit.Framework;
 
-namespace Egor92.UINavigation.Wpf.Tests.InternalTests
+namespace Egor92.UINavigation.Wpf.UnitTests.InternalTests
 {
     [TestFixture]
     internal class DataStorageTests : DataStorageTestsBase<DataStorage>

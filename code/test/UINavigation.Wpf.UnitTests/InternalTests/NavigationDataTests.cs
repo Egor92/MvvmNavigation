@@ -1,9 +1,8 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using Egor92.UINavigation.Wpf.Internal;
-using Egor92.UINavigation.Wpf.Tests.Internal;
+using Egor92.UINavigation.Wpf.UnitTests.Internal;
 using NUnit.Framework;
 
-namespace Egor92.UINavigation.Wpf.Tests.InternalTests
+namespace Egor92.UINavigation.Wpf.UnitTests.InternalTests
 {
     [TestFixture]
     internal class NavigationDataTests
