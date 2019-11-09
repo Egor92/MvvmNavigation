@@ -13,9 +13,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\UINavigation.Wpf\UINavigation.Wpf.csproj" />
-    <ProjectReference Include="..\UINavigation.Abstractions.ContractTests\UINavigation.Abstractions.ContractTests.csproj" />
-    <ProjectReference Include="..\UINavigation.ContractTests\UINavigation.ContractTests.csproj" />
-    <ProjectReference Include="..\UINavigation.Internal.ContractTests\UINavigation.Internal.ContractTests.csproj" />
+    <ProjectReference Include="..\..\src\UINavigation.Unity\UINavigation.Unity.csproj" />
+    <ProjectReference Include="..\UINavigation.Tests.Common.Unity\UINavigation.Tests.Common.Unity.csproj" />
   </ItemGroup>
 
   <ItemGroup>
