@@ -1,8 +1,8 @@
 ﻿using JetBrains.Annotations;
 
-namespace Egor92.UINavigation.Wpf.Internal
+namespace Egor92.UINavigation.Wpf
 {
-    internal interface IDataStorage
+    public interface IDataStorage
     {
         void Add([NotNull] string key, [NotNull] NavigationData navigationData);
 

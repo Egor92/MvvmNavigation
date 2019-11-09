@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using Egor92.UINavigation.Abstractions;
-using Egor92.UINavigation.Wpf.Tests.Internal;
+using Egor92.UINavigation.Wpf.UnitTests.Internal;
 using Moq;
 using NUnit.Framework;
 
-namespace Egor92.UINavigation.Wpf.Tests
+namespace Egor92.UINavigation.Wpf.UnitTests
 {
     [TestFixture]
     [Parallelizable(ParallelScope.Children)]
@@ -27,6 +27,20 @@ namespace Egor92.UINavigation.Wpf.Tests
             _frameControl = new ContentControl();
             _navigationManager = new NavigationManager(_frameControl);
             _view = Mock.Of<FrameworkElement>();
+        }
+
+        [Test]
+        [SuppressMessage("ReSharper", "AssignNullToNotNullAttribute")]
+        public void Ctor_DataStorageIsNull_ThrowException()
+        {
+            //Act
+            TestDelegate action = () =>
+            {
+                _navigationManager = new NavigationManager(_frameControl, null);
+            };
+
+            //Assert
+            Assert.That(action, ThrowsException.NullArgument(ArgumentNames.DataStorage));
         }
 
         [Test]
@@ -60,8 +74,7 @@ namespace Egor92.UINavigation.Wpf.Tests
             Func<object> viewFunc = () => _view;
 
             //Act
-            TestDelegate action;
-            action = () =>
+            TestDelegate action = () =>
             {
                 _navigationManager.Register(null, viewModelFunc, viewFunc);
             };
@@ -177,8 +190,8 @@ namespace Egor92.UINavigation.Wpf.Tests
 
         [Test]
         [TestCaseSource(nameof(NavigatedTo_TestCaseSource))]
-        public void Navigate_ViewModelIsINavigatedToAware_NavigatedToIsCalled(object navigationArg,
-                                                                              Action<INavigationManager, string, object> navigate)
+        public void Navigate_ViewModelIsINavigatedToAware_InvokeNavigatedTo(object navigationArg,
+                                                                            Action<INavigationManager, string, object> navigate)
         {
             //Arrange
             var navigationKey = "navigationKey";

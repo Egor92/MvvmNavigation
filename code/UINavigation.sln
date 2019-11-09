@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.168
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29418.71
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution items", "Solution items", "{A6FDCF5D-6C3E-4042-9CA9-C11FF327DDD3}"
 	ProjectSection(SolutionItems) = preProject
@@ -16,7 +16,21 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UINavigation.Abstractions",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UINavigation.Wpf", "src\UINavigation.Wpf\UINavigation.Wpf.csproj", "{3F23483A-19EE-4D9F-96E7-F3702A3D66C5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UINavigation.Wpf.Tests", "test\UINavigation.Wpf.Tests\UINavigation.Wpf.Tests.csproj", "{8FD8FA01-0DCD-4602-8991-3EEA1E688BD7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UINavigation.Wpf.UnitTests", "test\UINavigation.Wpf.UnitTests\UINavigation.Wpf.UnitTests.csproj", "{8FD8FA01-0DCD-4602-8991-3EEA1E688BD7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UINavigation.Abstractions.UnitTests", "test\UINavigation.Abstractions.UnitTests\UINavigation.Abstractions.UnitTests.csproj", "{E53671F6-1DB8-4214-9280-BAA141A29EF9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UINavigation.Wpf.Unity", "src\UINavigation.Wpf.Unity\UINavigation.Wpf.Unity.csproj", "{29FCC7A8-E39D-478D-8573-31D7420F5B92}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UINavigation.Tests.Common", "test\UINavigation.Tests.Common\UINavigation.Tests.Common.csproj", "{FE77A7C7-FABE-42A4-A729-205A40307CCE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UINavigation.Wpf.Unity.UnitTests", "test\UINavigation.Wpf.Unity.UnitTests\UINavigation.Wpf.Unity.UnitTests.csproj", "{422FD701-9B8F-4BFF-B212-130E83822594}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{5C411D94-59A6-47CF-A57E-DAFFDED03E18}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UINavigation.Abstractions.ContractTests", "test\UINavigation.Abstractions.ContractTests\UINavigation.Abstractions.ContractTests.csproj", "{3B5A719E-FAC8-45D8-A9FA-0157F968E6DB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UINavigation.Wpf.ContractTests", "test\UINavigation.Wpf.ContractTests\UINavigation.Wpf.ContractTests.csproj", "{5BF2E2A9-1741-4A44-83D8-3F6E1A533F56}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,6 +50,30 @@ Global
 		{8FD8FA01-0DCD-4602-8991-3EEA1E688BD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8FD8FA01-0DCD-4602-8991-3EEA1E688BD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8FD8FA01-0DCD-4602-8991-3EEA1E688BD7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E53671F6-1DB8-4214-9280-BAA141A29EF9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E53671F6-1DB8-4214-9280-BAA141A29EF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E53671F6-1DB8-4214-9280-BAA141A29EF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E53671F6-1DB8-4214-9280-BAA141A29EF9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29FCC7A8-E39D-478D-8573-31D7420F5B92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29FCC7A8-E39D-478D-8573-31D7420F5B92}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29FCC7A8-E39D-478D-8573-31D7420F5B92}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29FCC7A8-E39D-478D-8573-31D7420F5B92}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE77A7C7-FABE-42A4-A729-205A40307CCE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE77A7C7-FABE-42A4-A729-205A40307CCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE77A7C7-FABE-42A4-A729-205A40307CCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE77A7C7-FABE-42A4-A729-205A40307CCE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{422FD701-9B8F-4BFF-B212-130E83822594}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{422FD701-9B8F-4BFF-B212-130E83822594}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{422FD701-9B8F-4BFF-B212-130E83822594}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{422FD701-9B8F-4BFF-B212-130E83822594}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B5A719E-FAC8-45D8-A9FA-0157F968E6DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B5A719E-FAC8-45D8-A9FA-0157F968E6DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B5A719E-FAC8-45D8-A9FA-0157F968E6DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B5A719E-FAC8-45D8-A9FA-0157F968E6DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5BF2E2A9-1741-4A44-83D8-3F6E1A533F56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5BF2E2A9-1741-4A44-83D8-3F6E1A533F56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5BF2E2A9-1741-4A44-83D8-3F6E1A533F56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5BF2E2A9-1741-4A44-83D8-3F6E1A533F56}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -44,6 +82,13 @@ Global
 		{76E7DB28-959F-46B8-9178-CBC9F632CFDB} = {E31339A4-1C1F-48AC-AE56-029CFD04B33E}
 		{3F23483A-19EE-4D9F-96E7-F3702A3D66C5} = {E31339A4-1C1F-48AC-AE56-029CFD04B33E}
 		{8FD8FA01-0DCD-4602-8991-3EEA1E688BD7} = {A9E06829-D8AA-4575-9CA9-8BE4930F2573}
+		{E53671F6-1DB8-4214-9280-BAA141A29EF9} = {A9E06829-D8AA-4575-9CA9-8BE4930F2573}
+		{29FCC7A8-E39D-478D-8573-31D7420F5B92} = {E31339A4-1C1F-48AC-AE56-029CFD04B33E}
+		{FE77A7C7-FABE-42A4-A729-205A40307CCE} = {5C411D94-59A6-47CF-A57E-DAFFDED03E18}
+		{422FD701-9B8F-4BFF-B212-130E83822594} = {A9E06829-D8AA-4575-9CA9-8BE4930F2573}
+		{5C411D94-59A6-47CF-A57E-DAFFDED03E18} = {A9E06829-D8AA-4575-9CA9-8BE4930F2573}
+		{3B5A719E-FAC8-45D8-A9FA-0157F968E6DB} = {A9E06829-D8AA-4575-9CA9-8BE4930F2573}
+		{5BF2E2A9-1741-4A44-83D8-3F6E1A533F56} = {A9E06829-D8AA-4575-9CA9-8BE4930F2573}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DE6746A3-BA9D-4DF6-A2A0-A45BB86DF4ED}

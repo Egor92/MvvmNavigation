@@ -1,7 +1,8 @@
-﻿using NUnit.Framework;
+﻿using Egor92.UINavigation.Tests.Common;
+using NUnit.Framework;
 using NUnit.Framework.Constraints;
 
-namespace Egor92.UINavigation.Wpf.Tests.Internal
+namespace Egor92.UINavigation.Wpf.UnitTests.Internal
 {
     internal static class ThrowsException
     {
