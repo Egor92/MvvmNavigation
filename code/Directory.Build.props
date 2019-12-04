@@ -15,15 +15,6 @@
     <PackageLicenseUrl>https://github.com/Egor92/UINavigation/blob/master/LICENSE</PackageLicenseUrl>
     <RepositoryUrl>https://github.com/Egor92/UINavigation</RepositoryUrl>
   </PropertyGroup>
-  
-  <ItemGroup>
-    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
-      <_Parameter1>$(MSBuildProjectName).UnitTests</_Parameter1>
-    </AssemblyAttribute>
-    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
-      <_Parameter1>$(MSBuildProjectName).ContractTests</_Parameter1>
-    </AssemblyAttribute>
-  </ItemGroup>
 
   <PropertyGroup>
     <DebugSymbols>false</DebugSymbols>
