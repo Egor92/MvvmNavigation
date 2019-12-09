@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using Egor92.UINavigation.ContractTests.Internal;
-using Egor92.UINavigation.Tests.Common;
 using NUnit.Framework;
+using ThrowsException = Egor92.UINavigation.Tests.Common.ThrowsException;
 
 namespace Egor92.UINavigation.ContractTests.InternalTests
 {

@@ -2,7 +2,7 @@
 using NUnit.Framework;
 using NUnit.Framework.Constraints;
 
-namespace Egor92.UINavigation.UnitTests.Internal
+namespace Egor92.UINavigation.ContractTests.Internal
 {
     internal static class ThrowsException
     {

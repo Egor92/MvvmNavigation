@@ -14,6 +14,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\UINavigation.Wpf\UINavigation.Wpf.csproj" />
     <ProjectReference Include="..\..\src\UINavigation\UINavigation.csproj" />
+    <ProjectReference Include="..\UINavigation.Abstractions.ContractTests\UINavigation.Abstractions.ContractTests.csproj" />
     <ProjectReference Include="..\UINavigation.Tests.Common\UINavigation.Tests.Common.csproj" />
   </ItemGroup>
 
