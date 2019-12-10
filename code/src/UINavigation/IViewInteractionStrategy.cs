@@ -5,6 +5,8 @@ namespace Egor92.UINavigation
 {
     public interface IViewInteractionStrategy
     {
+        object GetContent(object control);
+
         void SetContent([NotNull] object control, object content);
 
         object GetDataContext([NotNull] object control);

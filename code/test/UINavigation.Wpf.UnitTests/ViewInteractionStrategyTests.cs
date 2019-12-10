@@ -21,16 +21,6 @@ namespace Egor92.UINavigation.Wpf.UnitTests
             return new ViewInteractionStrategy();
         }
 
-        protected override ContentControl CreateContentControl()
-        {
-            return new ContentControl();
-        }
-
-        protected override FrameworkElement CreateControlWithDataContext()
-        {
-            return new FrameworkElement();
-        }
-
         protected override object GetContent(ContentControl contentControl)
         {
             return contentControl.Content;

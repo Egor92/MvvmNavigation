@@ -8,13 +8,13 @@ namespace Egor92.UINavigation.Abstractions.ContractTests
     [SuppressMessage("ReSharper", "ConvertToLocalFunction")]
     [SuppressMessage("ReSharper", "InconsistentNaming")]
     [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
-    public abstract class NavigationManagerContractTestsBase<TNavigationManager>
+    public abstract class NavigationManagerContractTests<TNavigationManager>
         where TNavigationManager : INavigationManager
     {
         #region Fields
 
         private string _navigationKey;
-        private TNavigationManager _navigationManager;
+        protected TNavigationManager _navigationManager;
 
         #endregion
 

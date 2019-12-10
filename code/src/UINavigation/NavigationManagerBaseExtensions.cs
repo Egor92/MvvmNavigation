@@ -3,7 +3,7 @@ using JetBrains.Annotations;
 
 namespace Egor92.UINavigation
 {
-    public static class NavigationManagerExtensions
+    public static class NavigationManagerBaseExtensions
     {
         public static void Register<TView>([NotNull] this NavigationManagerBase navigationManager,
                                            [NotNull] string navigationKey,

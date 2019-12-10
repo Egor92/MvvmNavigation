@@ -8,6 +8,21 @@ namespace Egor92.UINavigation.Wpf
 {
     public class ViewInteractionStrategy : IViewInteractionStrategy
     {
+        public object GetContent(object control)
+        {
+            if (control == null)
+            {
+                throw new ArgumentNullException(nameof(control));
+            }
+
+            if (!(control is ContentControl contentControl))
+            {
+                return null;
+            }
+
+            return contentControl.Content;
+        }
+
         public void SetContent(object control, [NotNull] object content)
         {
             if (control == null)

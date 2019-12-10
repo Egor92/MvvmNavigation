@@ -27,7 +27,7 @@ namespace Egor92.UINavigation
                                         [NotNull] IDataStorage dataStorage)
         {
             _frameControl = frameControl ?? throw new ArgumentNullException(nameof(frameControl));
-            _viewInteractionStrategy = viewInteractionStrategy;
+            _viewInteractionStrategy = viewInteractionStrategy ?? throw new ArgumentNullException(nameof(viewInteractionStrategy));
             _dataStorage = dataStorage ?? throw new ArgumentNullException(nameof(dataStorage));
         }
 
@@ -77,7 +77,7 @@ namespace Egor92.UINavigation
             if (!isKeyRegistered)
                 throw new InvalidOperationException(ExceptionMessages.KeyIsNotRegistered(navigationKey));
 
-            InvokeInMainThread(() =>
+            InvokeInDispatcher(() =>
             {
                 InvokeNavigatedFrom();
                 var viewModel = GetViewModel(navigationKey);
@@ -91,7 +91,7 @@ namespace Egor92.UINavigation
             });
         }
 
-        private void InvokeInMainThread(Action action)
+        private void InvokeInDispatcher(Action action)
         {
             _viewInteractionStrategy.InvokeInDispatcher(_frameControl, action);
         }
@@ -116,9 +116,13 @@ namespace Egor92.UINavigation
 
         private void InvokeNavigatedFrom()
         {
-            var oldViewModel = _viewInteractionStrategy.GetDataContext(_frameControl);
-            var navigationAware = oldViewModel as INavigatingFromAware;
-            navigationAware?.OnNavigatingFrom();
+            var oldView = _viewInteractionStrategy.GetContent(_frameControl);
+            if (oldView != null)
+            {
+                var oldViewModel = _viewInteractionStrategy.GetDataContext(oldView);
+                var navigationAware = oldViewModel as INavigatingFromAware;
+                navigationAware?.OnNavigatingFrom();
+            }
         }
 
         private static void InvokeNavigatedTo(object viewModel, object arg)

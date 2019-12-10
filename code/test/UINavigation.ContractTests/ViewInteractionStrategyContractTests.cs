@@ -1,12 +1,14 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using Egor92.UINavigation.ContractTests.Internal;
-using Egor92.UINavigation.Tests.Common;
 using NUnit.Framework;
+using ThrowsException = Egor92.UINavigation.Tests.Common.ThrowsException;
 
 namespace Egor92.UINavigation.ContractTests
 {
     public abstract class ViewInteractionStrategyContractTests<TViewInteractionStrategy, TContentControl, TControlWithDataContext>
         where TViewInteractionStrategy : IViewInteractionStrategy
+        where TContentControl : new()
+        where TControlWithDataContext : new()
     {
         private TViewInteractionStrategy _viewInteractionStrategy;
 
@@ -17,11 +19,48 @@ namespace Egor92.UINavigation.ContractTests
 
         protected abstract TViewInteractionStrategy CreateViewInteractionStrategy();
 
-        protected abstract TContentControl CreateContentControl();
-
-        protected abstract TControlWithDataContext CreateControlWithDataContext();
-
         protected abstract object GetContent(TContentControl contentControl);
+
+        [Test]
+        public void GetContent_ControlIsNull_ThrowException()
+        {
+            //Act
+            void Action()
+            {
+                _viewInteractionStrategy.GetContent(null);
+            }
+
+            //Assert
+            Assert.That(Action, ThrowsException.NullArgument(ArgumentNames.Control));
+        }
+
+        [Test]
+        public void GetContent_ContentWasSet_ReturnTheContent()
+        {
+            //Arrange
+            var control = new TContentControl();
+            var originalContent = new object();
+            _viewInteractionStrategy.SetContent(control, originalContent);
+
+            //Act
+            var content = _viewInteractionStrategy.GetContent(control);
+
+            //Assert
+            Assert.That(content, Is.EqualTo(originalContent));
+        }
+
+        [Test]
+        public void GetContent_ContentHasNoContent_ReturnNull()
+        {
+            //Arrange
+            var control = new object();
+
+            //Act
+            var content = _viewInteractionStrategy.GetContent(control);
+
+            //Assert
+            Assert.That(content, Is.Null);
+        }
 
         [Test]
         public void SetContent_ControlHasNotContentProperty_DoNotThrowException()
@@ -46,7 +85,7 @@ namespace Egor92.UINavigation.ContractTests
             //Act
             void Action()
             {
-                _viewInteractionStrategy.SetDataContext(null, new object());
+                _viewInteractionStrategy.SetContent(null, new object());
             }
 
             //Assert
@@ -57,7 +96,7 @@ namespace Egor92.UINavigation.ContractTests
         public void SetContent_ContentIsNotNull_SetContentToControl()
         {
             //Arrange
-            var contentControl = CreateContentControl();
+            var contentControl = new TContentControl();
             var content = new object();
 
             //Act
@@ -71,7 +110,7 @@ namespace Egor92.UINavigation.ContractTests
         public void SetContent_ContentIsNull_ControlHasNullAsContent()
         {
             //Arrange
-            var contentControl = CreateContentControl();
+            var contentControl = new TContentControl();
 
             //Act
             _viewInteractionStrategy.SetContent(contentControl, null);
@@ -112,7 +151,7 @@ namespace Egor92.UINavigation.ContractTests
         {
             //Arrange
             var originalDataContext = new object();
-            var controlWithDataContext = CreateControlWithDataContext();
+            var controlWithDataContext = new TControlWithDataContext();
 
             _viewInteractionStrategy.SetDataContext(controlWithDataContext, originalDataContext);
 
@@ -157,7 +196,7 @@ namespace Egor92.UINavigation.ContractTests
         public void SetDataContext_DataContextIsNull_DoNotThrowException()
         {
             //Arrange
-            var contentControl = CreateContentControl();
+            var contentControl = new TContentControl();
 
             //Act
             void Action()
@@ -193,7 +232,7 @@ namespace Egor92.UINavigation.ContractTests
         public void InvokeInDispatcher_ActionIsNull_ThrowException()
         {
             //Arrange
-            var contentControl = CreateContentControl();
+            var contentControl = new TContentControl();
 
             //Act
             void Action()
@@ -209,7 +248,7 @@ namespace Egor92.UINavigation.ContractTests
         public void InvokeInDispatcher_DispatcherThread_ActionIsInvoked()
         {
             //Arrange
-            var contentControl = CreateContentControl();
+            var contentControl = new TContentControl();
             bool isActionInvoked = false;
 
             //Act

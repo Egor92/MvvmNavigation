@@ -3,36 +3,44 @@ using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
 using Egor92.UINavigation.Abstractions;
+using Egor92.UINavigation.Abstractions.ContractTests;
+using Egor92.UINavigation.ContractTests.Internal;
 using Egor92.UINavigation.Tests.Common;
-using Egor92.UINavigation.UnitTests.Internal;
 using Moq;
 using NUnit.Framework;
-using ThrowsException = Egor92.UINavigation.UnitTests.Internal.ThrowsException;
+using ThrowsException = Egor92.UINavigation.Tests.Common.ThrowsException;
 
-namespace Egor92.UINavigation.UnitTests
+namespace Egor92.UINavigation.ContractTests
 {
     [TestFixture]
     [Parallelizable(ParallelScope.Children)]
     [Apartment(ApartmentState.STA)]
     [SuppressMessage("ReSharper", "ConvertToLocalFunction")]
-    public abstract class NavigationManagerTests<TNavigationManager, TContentControl, TView>
-        where TNavigationManager : INavigationManager
+    public abstract class NavigationManagerBaseContractTests<TNavigationManager, TContentControl, TView> : NavigationManagerContractTests<TNavigationManager>
+        where TNavigationManager : NavigationManagerBase
         where TContentControl : class, new()
-        where TView : class
+        where TView : class, new()
     {
-        private TNavigationManager _navigationManager;
         private TContentControl _frameControl;
         private TView _view;
 
-        [SetUp]
-        public void SetUp()
+        public override void SetUp()
         {
             _frameControl = new TContentControl();
-            _navigationManager = CreateNavigationManager(_frameControl);
-            _view = Mock.Of<TView>();
+            _view = new TView();
+            base.SetUp();
         }
 
-        #region Abstract methods
+        #region Overridden members
+
+        protected sealed override TNavigationManager CreateNavigationManager()
+        {
+            return CreateNavigationManager(_frameControl);
+        }
+
+        #endregion
+
+        #region Abstract members
 
         protected abstract TNavigationManager CreateNavigationManager(TContentControl frameControl);
 
@@ -71,7 +79,7 @@ namespace Egor92.UINavigation.UnitTests
             //Arrange
             var navigationKey = "navigationKey";
             var viewModel = new object();
-            _navigationManager = await TaskHelper.StartTaskWithApartmentState(apartmentState, () => CreateNavigationManager(_frameControl));
+            _navigationManager = await TaskHelper.StartTaskWithApartmentState(apartmentState, CreateNavigationManager);
             RegisterNavigationRule(_navigationManager, navigationKey, () => viewModel, () => _view);
 
             //Act
@@ -155,7 +163,7 @@ namespace Egor92.UINavigation.UnitTests
             };
 
             //Assert
-            Assert.That(action, ThrowsException.CanNotRegisterKeyTwice());
+            Assert.That(action, Internal.ThrowsException.CanNotRegisterKeyTwice());
         }
 
         [SuppressMessage("ReSharper", "AssignNullToNotNullAttribute")]
@@ -188,7 +196,7 @@ namespace Egor92.UINavigation.UnitTests
             };
 
             //Assert
-            Assert.That(action, ThrowsException.KeyIsNotRegistered(navigationKey));
+            Assert.That(action, Internal.ThrowsException.KeyIsNotRegistered(navigationKey));
         }
 
         [Test]
@@ -227,7 +235,8 @@ namespace Egor92.UINavigation.UnitTests
         }
 
         [SuppressMessage("ReSharper", "RedundantArgumentDefaultValue")]
-        private static TestCaseData[] NavigatedTo_TestCaseSource()
+        [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
+        public static TestCaseData[] NavigatedTo_TestCaseSource()
         {
             return new[]
             {

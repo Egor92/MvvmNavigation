@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using Egor92.UINavigation.UnitTests.Internal;
+using Egor92.UINavigation.ContractTests.Internal;
+using Egor92.UINavigation.Tests.Common;
 using NUnit.Framework;
 
 namespace Egor92.UINavigation.UnitTests.InternalTests
