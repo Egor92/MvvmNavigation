@@ -1,10 +1,7 @@
 <Project>
   <PropertyGroup>
-    <!-- Empty 'Version' is required for Appveyor -->
     <Version />
-    <!-- Empty 'FileVersion' is required for Appveyor -->
     <FileVersion />
-    <!-- Empty 'InformationalVersion' is required for Appveyor -->
     <InformationalVersion />
     <Authors>Egor92</Authors>
     <Company>Egor92</Company>
@@ -14,18 +11,5 @@
     <PackageProjectUrl>https://github.com/Egor92/UINavigation</PackageProjectUrl>
     <PackageLicenseUrl>https://github.com/Egor92/UINavigation/blob/master/LICENSE</PackageLicenseUrl>
     <RepositoryUrl>https://github.com/Egor92/UINavigation</RepositoryUrl>
-  </PropertyGroup>
-
-  <PropertyGroup>
-    <DebugSymbols>false</DebugSymbols>
-    <DebugType>none</DebugType>
-    <Optimize>true</Optimize>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="$(Configuration) == 'Debug'">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
   </PropertyGroup>
 </Project>

@@ -1,5 +1,5 @@
 environment:
-  assembly_version: 2.0.0
+  assembly_version: 2.1.0
   assembly_file_version: '$(assembly_version).$(appveyor_build_number)'
   assembly_informational_version: '$(assembly_file_version)'
   access_token:
@@ -10,7 +10,7 @@ skip_tags: true
 
 only_commits:
   files:
-    - code/
+    - code/src/
     - appveyor.yml
     
 init:
