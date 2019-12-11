@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <UseWpf>True</UseWpf>
+    <TargetFramework>net472</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="UINavigation.Unity" Version="2.1.1" />
+    <PackageReference Include="UINavigation.Wpf" Version="2.1.1" />
+  </ItemGroup>
+
+</Project>
