@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net472</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);CopyProjectReferencesToPackage</TargetsForTfmSpecificBuildOutput>
   </PropertyGroup>
 
   <ItemGroup>
@@ -11,10 +12,10 @@
   
   <ItemGroup>
     <ProjectReference Include="..\UINavigation.Abstractions\UINavigation.Abstractions.csproj" />
-    <ProjectReference Include="..\UINavigation.Internal\UINavigation.Internal.csproj" />
+    <ProjectReference Include="..\UINavigation.Internal\UINavigation.Internal.csproj" PrivateAssets="all" />
     <ProjectReference Include="..\UINavigation\UINavigation.csproj" />
   </ItemGroup>
-  
+
   <ItemGroup>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />

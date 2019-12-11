@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\UINavigation.Internal\UINavigation.Internal.csproj" />
     <ProjectReference Include="..\..\src\UINavigation.Unity\UINavigation.Unity.csproj" />
     <ProjectReference Include="..\..\src\UINavigation\UINavigation.csproj" />
     <ProjectReference Include="..\UINavigation.ContractTests\UINavigation.ContractTests.csproj" />
