@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UINavigation.Samples.Common
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestaurantApp", "RestaurantApp\RestaurantApp.csproj", "{C7525398-2898-4AAD-93FA-2888A3A64CDC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleWithUnity", "SampleWithUnity\SampleWithUnity.csproj", "{9E291E01-9EA6-4BE9-9944-A2934B864C03}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SampleWithUnity", "SampleWithUnity\SampleWithUnity.csproj", "{9E291E01-9EA6-4BE9-9944-A2934B864C03}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,13 +39,14 @@ Global
 		{EDAA67A0-C907-4C14-8EC8-E52D8CE7186C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EDAA67A0-C907-4C14-8EC8-E52D8CE7186C}.Release|x86.ActiveCfg = Release|Any CPU
 		{EDAA67A0-C907-4C14-8EC8-E52D8CE7186C}.Release|x86.Build.0 = Release|Any CPU
-		{C7525398-2898-4AAD-93FA-2888A3A64CDC}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{C7525398-2898-4AAD-93FA-2888A3A64CDC}.Debug|Any CPU.Build.0 = Debug|x86
-		{C7525398-2898-4AAD-93FA-2888A3A64CDC}.Debug|x86.ActiveCfg = Debug|x86
-		{C7525398-2898-4AAD-93FA-2888A3A64CDC}.Debug|x86.Build.0 = Debug|x86
-		{C7525398-2898-4AAD-93FA-2888A3A64CDC}.Release|Any CPU.ActiveCfg = Release|x86
-		{C7525398-2898-4AAD-93FA-2888A3A64CDC}.Release|x86.ActiveCfg = Release|x86
-		{C7525398-2898-4AAD-93FA-2888A3A64CDC}.Release|x86.Build.0 = Release|x86
+		{C7525398-2898-4AAD-93FA-2888A3A64CDC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7525398-2898-4AAD-93FA-2888A3A64CDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7525398-2898-4AAD-93FA-2888A3A64CDC}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C7525398-2898-4AAD-93FA-2888A3A64CDC}.Debug|x86.Build.0 = Debug|Any CPU
+		{C7525398-2898-4AAD-93FA-2888A3A64CDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7525398-2898-4AAD-93FA-2888A3A64CDC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7525398-2898-4AAD-93FA-2888A3A64CDC}.Release|x86.ActiveCfg = Release|Any CPU
+		{C7525398-2898-4AAD-93FA-2888A3A64CDC}.Release|x86.Build.0 = Release|Any CPU
 		{9E291E01-9EA6-4BE9-9944-A2934B864C03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9E291E01-9EA6-4BE9-9944-A2934B864C03}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9E291E01-9EA6-4BE9-9944-A2934B864C03}.Debug|x86.ActiveCfg = Debug|Any CPU
