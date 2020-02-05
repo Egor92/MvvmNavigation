@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using Egor92.UINavigation;
 using Egor92.UINavigation.Wpf;
 using RestaurantApp.Constants;
 using RestaurantApp.Infrastructure.Implementations;
