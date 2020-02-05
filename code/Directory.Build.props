@@ -1,5 +1,5 @@
 <Project>
-  <PropertyGroup>
+  <PropertyGroup Label="Project information">
     <!-- Empty 'Version' is required for Appveyor -->
     <Version />
     <!-- Empty 'FileVersion' is required for Appveyor -->
@@ -16,13 +16,13 @@
     <RepositoryUrl>https://github.com/Egor92/UINavigation</RepositoryUrl>
   </PropertyGroup>
 
-  <PropertyGroup>
+  <PropertyGroup Label="Release configuration">
     <DebugSymbols>false</DebugSymbols>
     <DebugType>none</DebugType>
     <Optimize>true</Optimize>
   </PropertyGroup>
 
-  <PropertyGroup Condition="$(Configuration) == 'Debug'">
+  <PropertyGroup Label="Debug configuration" Condition="$(Configuration) == 'Debug'">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>

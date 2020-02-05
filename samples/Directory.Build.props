@@ -4,4 +4,17 @@
     <Company>Egor92</Company>
     <Trademark>$(Company)™</Trademark>
   </PropertyGroup>
+
+  <PropertyGroup>
+    <DebugSymbols>false</DebugSymbols>
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="$(Configuration) == 'Debug'">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+  </PropertyGroup>
 </Project>

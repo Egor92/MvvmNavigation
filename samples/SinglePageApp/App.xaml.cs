@@ -1,4 +1,6 @@
 ﻿using System.Windows;
+using Egor92.UINavigation;
+using Egor92.UINavigation.Abstractions;
 using Egor92.UINavigation.Wpf;
 using UINavigation.Samples.Wpf.SinglePageApp.Constants;
 using UINavigation.Samples.Wpf.SinglePageApp.ViewModels;
