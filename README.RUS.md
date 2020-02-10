@@ -73,8 +73,8 @@ Go to [english page](https://github.com/Egor92/UINavigation/blob/master/README.m
 UINavigation поддерживает Unity из коробки.
 
 1. Установите 2 NuGet пакета:
- - [UINavigation.Wpf](https://www.nuget.org/packages/UINavigation.Wpf/ "UINavigation.Wpf")
- - [UINavigation.Unity](https://www.nuget.org/packages/UINavigation.Unity/ "UINavigation.Unity")
+ - [UINavigation.Wpf](https://www.nuget.org/packages/UINavigation.Wpf/)
+ - [UINavigation.Unity](https://www.nuget.org/packages/UINavigation.Unity/)
 
 1. Определите привала навигации через UnityContainer:
 
@@ -91,9 +91,9 @@ UINavigation поддерживает Unity из коробки.
             unityContainer.RegisterNavigationManager(mainWindow);
 
             //3. Определите правила навигации
-            unityContainer.RegisterNavigationRule<FirstViewModel, FirstView>("First");
-            unityContainer.RegisterNavigationRule<SecondViewModel, SecondView>("Second");
-
+            unityContainer.RegisterNavigationRule<FirstViewModel, FirstView>("FirstKey");
+            unityContainer.RegisterNavigationRule<SecondViewModel, SecondView>("SecondKey");
+		 
             //4. Отобразите стартовый UI
             var navigationManager = unityContainer.Resolve<INavigationManager>();
             navigationManager.Navigation("FirstKey");
