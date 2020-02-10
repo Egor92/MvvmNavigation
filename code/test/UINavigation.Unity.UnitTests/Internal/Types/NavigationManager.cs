@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using Egor92.UINavigation.Abstractions;
 
 namespace Egor92.UINavigation.Unity.UnitTests.Internal.Types
@@ -15,6 +16,7 @@ namespace Egor92.UINavigation.Unity.UnitTests.Internal.Types
             throw new NotImplementedException();
         }
 
+        [SuppressMessage("ReSharper", "UnusedMember.Global")]
         public event EventHandler<NavigationEventArgs> Navigated;
     }
 }

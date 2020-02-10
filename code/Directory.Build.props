@@ -14,6 +14,8 @@
     <PackageProjectUrl>https://github.com/Egor92/UINavigation</PackageProjectUrl>
     <PackageLicenseUrl>https://github.com/Egor92/UINavigation/blob/master/LICENSE</PackageLicenseUrl>
     <RepositoryUrl>https://github.com/Egor92/UINavigation</RepositoryUrl>
+	<LangVersion>latest</LangVersion>
+    <PackageTags>mvvm;navigation;page;wpf</PackageTags>
   </PropertyGroup>
 
   <PropertyGroup Label="Release configuration">
