@@ -73,8 +73,8 @@ This library allows you to adjust navigation behavior in your WPF application an
 UINavigation supports Unity out of the box.
 
 1. Install two NuGet packages
- - [UINavigation.Wpf](https://www.nuget.org/packages/UINavigation.Wpf/ "UINavigation.Wpf")
- - [UINavigation.Unity](https://www.nuget.org/packages/UINavigation.Unity/ "UINavigation.Unity")
+ - [UINavigation.Wpf](https://www.nuget.org/packages/UINavigation.Wpf/)
+ - [UINavigation.Unity](https://www.nuget.org/packages/UINavigation.Unity/)
 
 1. Define navigation rules via UnityContainer:
 
@@ -91,8 +91,8 @@ UINavigation supports Unity out of the box.
             unityContainer.RegisterNavigationManager(mainWindow);
 
             //3. Register navigation rules
-            unityContainer.RegisterNavigationRule<FirstViewModel, FirstView>("First");
-            unityContainer.RegisterNavigationRule<SecondViewModel, SecondView>("Second");
+            unityContainer.RegisterNavigationRule<FirstViewModel, FirstView>("FirstKey");
+            unityContainer.RegisterNavigationRule<SecondViewModel, SecondView>("SecondKey");
 
             //4. Display start UI
             var navigationManager = unityContainer.Resolve<INavigationManager>();
