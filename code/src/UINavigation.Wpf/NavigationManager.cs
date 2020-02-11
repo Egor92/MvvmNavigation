@@ -2,7 +2,7 @@
 using Egor92.UINavigation.Internal;
 using JetBrains.Annotations;
 
-namespace Egor92.UINavigation.Wpf
+namespace Egor92.UINavigation
 {
     [NavigationManager(typeof(ContentControl))]
     public class NavigationManager : NavigationManagerBase
