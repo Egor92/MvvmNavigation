@@ -4,7 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Threading;
 using JetBrains.Annotations;
 
-namespace Egor92.UINavigation.Wpf
+namespace Egor92.UINavigation
 {
     public class ViewInteractionStrategy : IViewInteractionStrategy
     {

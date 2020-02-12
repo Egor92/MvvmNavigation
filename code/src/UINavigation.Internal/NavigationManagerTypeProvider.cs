@@ -12,7 +12,7 @@ namespace Egor92.UINavigation.Internal
 
         public Type GetNavigationManagerType()
         {
-            return AssemblyNames.Select(assemblyName => $"Egor92.{assemblyName}.NavigationManager, {assemblyName}")
+            return AssemblyNames.Select(assemblyName => $"Egor92.UINavigation.NavigationManager, {assemblyName}")
                                 .Select(Type.GetType)
                                 .FirstOrDefault(x => x != null);
         }
