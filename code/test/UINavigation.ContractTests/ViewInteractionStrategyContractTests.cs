@@ -213,7 +213,7 @@ namespace Egor92.UINavigation.ContractTests
         public void InvokeInDispatcher_ControlIsNull_ThrowException()
         {
             //Arrange
-            void DoSomething()
+            static void DoSomething()
             {
             }
 
