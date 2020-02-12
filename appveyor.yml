@@ -10,7 +10,7 @@ skip_tags: true
 
 only_commits:
   files:
-    - code/src/
+    - code/
     - appveyor.yml
     
 init:
