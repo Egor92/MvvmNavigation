@@ -1,14 +1,14 @@
-# UINavigation
+# MvvmNavigation
 
-[![Build status](https://img.shields.io/appveyor/ci/Egor92/UINavigation/master)](https://ci.appveyor.com/project/Egor92/UINavigation/branch/master)
-[![Version](https://img.shields.io/nuget/vpre/UINavigation.Wpf.svg)](https://www.nuget.org/packages/UINavigation.Wpf)
-[![Downloads](https://img.shields.io/nuget/dt/UINavigation.Wpf.svg)](https://www.nuget.org/packages/UINavigation.Wpf)
-[![CodeFactor](https://www.codefactor.io/repository/github/egor92/uinavigation/badge/master)](https://www.codefactor.io/repository/github/egor92/uinavigation/overview/master)
-[![GitHub contributors](https://img.shields.io/github/contributors/Egor92/UINavigation.svg)](https://github.com/Egor92/UINavigation/graphs/contributors)
-[![License](https://img.shields.io/github/license/Egor92/UINavigation.svg)](https://github.com/Egor92/UINavigation/blob/master/LICENSE)
-[![Join the Gitter chat!](https://badges.gitter.im/Egor92/UINavigation.svg)](https://gitter.im/UINavigation/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Build status](https://img.shields.io/appveyor/ci/Egor92/MvvmNavigation/master)](https://ci.appveyor.com/project/Egor92/MvvmNavigation/branch/master)
+[![Version](https://img.shields.io/nuget/vpre/MvvmNavigation.Wpf.svg)](https://www.nuget.org/packages/MvvmNavigation.Wpf)
+[![Downloads](https://img.shields.io/nuget/dt/MvvmNavigation.Wpf.svg)](https://www.nuget.org/packages/MvvmNavigation.Wpf)
+[![CodeFactor](https://www.codefactor.io/repository/github/egor92/MvvmNavigation/badge/master)](https://www.codefactor.io/repository/github/egor92/MvvmNavigation/overview/master)
+[![GitHub contributors](https://img.shields.io/github/contributors/Egor92/MvvmNavigation.svg)](https://github.com/Egor92/MvvmNavigation/graphs/contributors)
+[![License](https://img.shields.io/github/license/Egor92/MvvmNavigation.svg)](https://github.com/Egor92/MvvmNavigation/blob/master/LICENSE)
+[![Join the Gitter chat!](https://badges.gitter.im/Egor92/MvvmNavigation.svg)](https://gitter.im/MvvmNavigation/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-Перейти на [русскую страницу](https://github.com/Egor92/UINavigation/blob/master/README.RUS.md)
+Перейти на [русскую страницу](https://github.com/Egor92/MvvmNavigation/blob/master/README.RUS.md)
 
 This library allows you to adjust navigation behavior in your WPF application and implement ViewModel-based navigation. This library completely adhere to MVVM pattern.
 
@@ -22,7 +22,7 @@ This library allows you to adjust navigation behavior in your WPF application an
 
 ## Usage
 
-1. Install NuGet package [UINavigation.Wpf](https://www.nuget.org/packages/UINavigation.Wpf/)
+1. Install NuGet package [MvvmNavigation.Wpf](https://www.nuget.org/packages/MvvmNavigation.Wpf/)
 
 1. Define navigation rules:
    ```csharp
@@ -66,17 +66,17 @@ This library allows you to adjust navigation behavior in your WPF application an
     }
    ```
 
-   Look it in [a sample](https://github.com/Egor92/UINavigation/blob/master/samples/RestaurantApp/App.xaml.cs)
+   Look it in [a sample](https://github.com/Egor92/MvvmNavigation/blob/master/samples/RestaurantApp/App.xaml.cs)
 
 ## Usage with Unity
 
-UINavigation supports Unity out of the box.
+MvvmNavigation supports Unity out of the box.
 
 1. Install two NuGet packages
- - [UINavigation.Wpf](https://www.nuget.org/packages/UINavigation.Wpf/)
- - [UINavigation.Unity](https://www.nuget.org/packages/UINavigation.Unity/)
+ - [MvvmNavigation.Wpf](https://www.nuget.org/packages/MvvmNavigation.Wpf/)
+ - [MvvmNavigation.Unity](https://www.nuget.org/packages/MvvmNavigation.Unity/)
 
-1. Define navigation rules via UnityContainer:
+2. Define navigation rules via UnityContainer:
 
    ```csharp
     public partial class App : Application
@@ -96,14 +96,14 @@ UINavigation supports Unity out of the box.
 
             //4. Display start UI
             var navigationManager = unityContainer.Resolve<INavigationManager>();
-            navigationManager.Navigation("FirstKey");
+            navigationManager.Navigate("FirstKey");
 
             window.Show();
         }
     }
    ```
 
-1. Сall *Navigate* method in your ViewModel in order to switch UI
+3. Сall *Navigate* method in your ViewModel in order to switch UI
    ```csharp
     public class FirstViewModel : ViewModelBase
     {
@@ -124,4 +124,4 @@ UINavigation supports Unity out of the box.
 
 ## Samples
 
-See all samples [here](https://github.com/Egor92/UINavigation/tree/master/samples).
+See all samples [here](https://github.com/Egor92/MvvmNavigation/tree/master/samples).
