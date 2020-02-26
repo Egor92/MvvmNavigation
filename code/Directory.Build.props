@@ -11,9 +11,9 @@
     <Trademark>$(Company)™</Trademark>
     <Copyright>Copyright © $(Company) $([System.DateTime]::Now.Year)</Copyright>
     <RootNamespace>$(Company).$(MSBuildProjectName)</RootNamespace>
-    <PackageProjectUrl>https://github.com/Egor92/UINavigation</PackageProjectUrl>
-    <PackageLicenseUrl>https://github.com/Egor92/UINavigation/blob/master/LICENSE</PackageLicenseUrl>
-    <RepositoryUrl>https://github.com/Egor92/UINavigation</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/Egor92/MvvmNavigation</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/Egor92/MvvmNavigation/blob/master/LICENSE</PackageLicenseUrl>
+    <RepositoryUrl>https://github.com/Egor92/MvvmNavigation</RepositoryUrl>
 	<LangVersion>latest</LangVersion>
     <PackageTags>mvvm;navigation;page;wpf</PackageTags>
   </PropertyGroup>

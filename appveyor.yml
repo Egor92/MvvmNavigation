@@ -2,6 +2,8 @@ environment:
   assembly_version: 3.0.0
   assembly_file_version: '$(assembly_version).$(appveyor_build_number)'
   assembly_informational_version: '$(assembly_file_version)'
+  project_name: 'MvvmNavigation'
+  solution_file_name: '$(project_name).sln'
   access_token:
     secure: 9NnzZ3Lxb6tEEXalTFO7eHW91jbsWpxeWyVQpWudDukFYr1oFvM7MIJvVBawcFJg
 
@@ -25,19 +27,17 @@ dotnet_csproj:
   informational_version: '$(assembly_informational_version)'
 
 image: Visual Studio 2019
-
-platform: Any CPU
 configuration: Release  
 
 before_build:
-  - nuget restore "./code/UINavigation.sln"
+  - nuget restore "./code/%solution_file_name%"
 
 build:
-  project: code\UINavigation.sln
+  project: code\%solution_file_name%
   
 test:
   assemblies:
-    - '**\*.Tests.dll'
+    - '**\*Tests.dll'
 
 artifacts:  
   - path: '**\*.nupkg'
