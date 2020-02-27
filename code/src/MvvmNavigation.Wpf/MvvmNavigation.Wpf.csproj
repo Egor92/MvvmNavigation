@@ -14,7 +14,7 @@
   
   <ItemGroup>
     <ProjectReference Include="..\MvvmNavigation.Abstractions\MvvmNavigation.Abstractions.csproj" />
-    <ProjectReference Include="..\MvvmNavigation.Internal\MvvmNavigation.Internal.csproj" />
+    <ProjectReference Include="..\MvvmNavigation.Internal\MvvmNavigation.Internal.csproj" PrivateAssets="all" />
     <ProjectReference Include="..\MvvmNavigation.Core\MvvmNavigation.Core.csproj" />
   </ItemGroup>
 
