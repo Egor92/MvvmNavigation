@@ -1,9 +1,9 @@
 ﻿using System.Linq;
 using Egor92.MvvmNavigation.Abstractions;
-using MvvmNavigation.Samples.Common;
 using RestaurantApp.Constants;
 using RestaurantApp.Infrastructure.Implementations;
 using RestaurantApp.Models;
+using Samples.Common;
 
 namespace RestaurantApp.ViewModels
 {
