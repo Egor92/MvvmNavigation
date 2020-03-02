@@ -8,10 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace UINavigation.Samples.Wpf.SinglePageApp.Properties {
-    using System;
-    
-    
+namespace SinglePageApp.Properties {
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>

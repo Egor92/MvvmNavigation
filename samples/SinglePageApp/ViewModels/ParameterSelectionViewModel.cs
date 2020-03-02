@@ -1,9 +1,9 @@
 ﻿using System.Windows.Input;
-using Egor92.UINavigation.Abstractions;
-using UINavigation.Samples.Common;
-using UINavigation.Samples.Wpf.SinglePageApp.Constants;
+using Egor92.MvvmNavigation.Abstractions;
+using Samples.Common;
+using SinglePageApp.Constants;
 
-namespace UINavigation.Samples.Wpf.SinglePageApp.ViewModels
+namespace SinglePageApp.ViewModels
 {
     public class ParameterSelectionViewModel : ViewModelBase
     {

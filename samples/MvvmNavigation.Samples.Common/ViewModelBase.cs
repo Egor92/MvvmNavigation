@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace UINavigation.Samples.Common
+namespace Samples.Common
 {
     public abstract class ViewModelBase : INotifyPropertyChanged
     {

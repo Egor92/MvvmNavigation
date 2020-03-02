@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace UINavigation.Samples.Common
+namespace Samples.Common
 {
     public class DelegateCommand : ICommand
     {

@@ -1,10 +1,10 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Egor92.UINavigation.Abstractions;
+using Egor92.MvvmNavigation.Abstractions;
 using RestaurantApp.Constants;
 using RestaurantApp.Infrastructure.Implementations;
 using RestaurantApp.Models;
-using UINavigation.Samples.Common;
+using Samples.Common;
 
 namespace RestaurantApp.ViewModels
 {

@@ -1,6 +1,6 @@
 ﻿using System.Windows;
-using Egor92.UINavigation.Abstractions;
-using Egor92.UINavigation.Unity;
+using Egor92.MvvmNavigation.Abstractions;
+using Egor92.MvvmNavigation.Unity;
 using SampleWithUnity.ViewModels;
 using SampleWithUnity.Views;
 using Unity;

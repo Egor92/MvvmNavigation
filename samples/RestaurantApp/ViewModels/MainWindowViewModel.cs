@@ -1,7 +1,7 @@
 ﻿using System.Windows.Input;
-using Egor92.UINavigation.Abstractions;
+using Egor92.MvvmNavigation.Abstractions;
 using RestaurantApp.Constants;
-using UINavigation.Samples.Common;
+using Samples.Common;
 
 namespace RestaurantApp.ViewModels
 {

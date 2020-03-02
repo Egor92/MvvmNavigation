@@ -1,23 +1,30 @@
 <Project>
-  <PropertyGroup Label="Project information">
-    <!-- Empty 'Version' is required for Appveyor -->
-    <Version />
-    <!-- Empty 'FileVersion' is required for Appveyor -->
-    <FileVersion />
-    <!-- Empty 'InformationalVersion' is required for Appveyor -->
-    <InformationalVersion />
+  <PropertyGroup Label="Nuget package information">
     <Authors>Egor92</Authors>
     <Company>Egor92</Company>
+    <Description>MVVM friendly library for easy navigation management in WPF application</Description>
     <Trademark>$(Company)™</Trademark>
     <Copyright>Copyright © $(Company) $([System.DateTime]::Now.Year)</Copyright>
-    <RootNamespace>$(Company).$(MSBuildProjectName)</RootNamespace>
     <PackageProjectUrl>https://github.com/Egor92/MvvmNavigation</PackageProjectUrl>
     <PackageLicenseUrl>https://github.com/Egor92/MvvmNavigation/blob/master/LICENSE</PackageLicenseUrl>
     <RepositoryUrl>https://github.com/Egor92/MvvmNavigation</RepositoryUrl>
-	<LangVersion>latest</LangVersion>
     <PackageTags>mvvm;navigation;page;wpf</PackageTags>
   </PropertyGroup>
 
+  <PropertyGroup Label="Project information">
+    <RootNamespace>$(Company).$(MSBuildProjectName)</RootNamespace>
+	<LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Label="Version">
+    <!-- Empty 'Version' is required for Appveyor -->
+    <Version />
+	<!-- Empty 'FileVersion' is required for Appveyor -->
+    <FileVersion />
+	<!-- Empty 'InformationalVersion' is required for Appveyor -->
+    <InformationalVersion />
+  </PropertyGroup>
+  
   <PropertyGroup Label="Release configuration">
     <DebugSymbols>false</DebugSymbols>
     <DebugType>none</DebugType>
