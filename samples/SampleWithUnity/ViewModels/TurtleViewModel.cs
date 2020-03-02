@@ -1,6 +1,6 @@
 ﻿using System.Windows.Input;
 using Egor92.MvvmNavigation.Abstractions;
-using SampleWithUnity.Infrastructure;
+using Samples.Common;
 
 namespace SampleWithUnity.ViewModels
 {
@@ -34,7 +34,7 @@ namespace SampleWithUnity.ViewModels
             get { return _selectAnotherTurtleCommand ?? (_selectAnotherTurtleCommand = new DelegateCommand(SelectAnotherTurtle)); }
         }
 
-        private void SelectAnotherTurtle(object _)
+        private void SelectAnotherTurtle()
         {
             var nextNavigationKey = RandomViewSelector.GetNextNavigationKey();
             _navigationManager.Navigate(nextNavigationKey);

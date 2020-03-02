@@ -1,6 +1,6 @@
 ﻿using System.Windows.Input;
 using Egor92.MvvmNavigation.Abstractions;
-using MvvmNavigation.Samples.Common;
+using Samples.Common;
 using SinglePageApp.Constants;
 
 namespace SinglePageApp.ViewModels
