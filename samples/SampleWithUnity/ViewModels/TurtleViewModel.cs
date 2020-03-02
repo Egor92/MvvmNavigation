@@ -1,5 +1,5 @@
 ﻿using System.Windows.Input;
-using Egor92.UINavigation.Abstractions;
+using Egor92.MvvmNavigation.Abstractions;
 using SampleWithUnity.Infrastructure;
 
 namespace SampleWithUnity.ViewModels

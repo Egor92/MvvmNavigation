@@ -1,12 +1,11 @@
 ﻿using System.Windows;
-using Egor92.UINavigation;
-using Egor92.UINavigation.Abstractions;
-using Egor92.UINavigation.Wpf;
-using UINavigation.Samples.Wpf.SinglePageApp.Constants;
-using UINavigation.Samples.Wpf.SinglePageApp.ViewModels;
-using UINavigation.Samples.Wpf.SinglePageApp.Views;
+using Egor92.MvvmNavigation;
+using Egor92.MvvmNavigation.Abstractions;
+using SinglePageApp.Constants;
+using SinglePageApp.ViewModels;
+using SinglePageApp.Views;
 
-namespace UINavigation.Samples.Wpf.SinglePageApp
+namespace SinglePageApp
 {
     public partial class App : Application
     {

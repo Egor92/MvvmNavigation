@@ -1,4 +1,4 @@
-﻿namespace UINavigation.Samples.Wpf.SinglePageApp.Constants
+﻿namespace SinglePageApp.Constants
 {
     public static class NavigationKeys
     {

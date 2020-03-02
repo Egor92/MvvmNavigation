@@ -1,4 +1,4 @@
-﻿using Egor92.UINavigation.Abstractions;
+﻿using Egor92.MvvmNavigation.Abstractions;
 
 namespace SampleWithUnity.ViewModels
 {
