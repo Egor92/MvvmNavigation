@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace UINavigation.Samples.Wpf.SinglePageApp.Views
+namespace SinglePageApp.Views
 {
     public partial class WelcomeView : UserControl
     {

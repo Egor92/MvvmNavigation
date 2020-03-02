@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace UINavigation.Samples.Wpf.SinglePageApp.Views
+namespace SinglePageApp.Views
 {
     public partial class MainWindow : Window
     {
