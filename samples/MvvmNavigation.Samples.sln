@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestaurantApp", "Restaurant
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SampleWithUnity", "SampleWithUnity\SampleWithUnity.csproj", "{9E291E01-9EA6-4BE9-9944-A2934B864C03}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Samples.Common", "MvvmNavigation.Samples.Common\Samples.Common.csproj", "{A7AD78CE-EAE2-44A2-87A5-E073E1F031BA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Samples.Common", "Samples.Common\Samples.Common.csproj", "{A7AD78CE-EAE2-44A2-87A5-E073E1F031BA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
