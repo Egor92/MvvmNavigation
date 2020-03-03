@@ -13,6 +13,6 @@ namespace Egor92.MvvmNavigation
 
         void SetDataContext([NotNull] object control, object dataContext);
 
-        void InvokeInDispatcher([NotNull] object control, [NotNull] Action action);
+        void InvokeInUIThread([NotNull] object control, [NotNull] Action action);
     }
 }

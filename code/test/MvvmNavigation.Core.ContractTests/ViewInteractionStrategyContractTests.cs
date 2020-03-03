@@ -220,7 +220,7 @@ namespace Egor92.MvvmNavigation.Core.ContractTests
             //Act
             void Action()
             {
-                _viewInteractionStrategy.InvokeInDispatcher(null, DoSomething);
+                _viewInteractionStrategy.InvokeInUIThread(null, DoSomething);
             }
 
             //Assert
@@ -237,7 +237,7 @@ namespace Egor92.MvvmNavigation.Core.ContractTests
             //Act
             void Action()
             {
-                _viewInteractionStrategy.InvokeInDispatcher(contentControl, null);
+                _viewInteractionStrategy.InvokeInUIThread(contentControl, null);
             }
 
             //Assert
@@ -252,7 +252,7 @@ namespace Egor92.MvvmNavigation.Core.ContractTests
             bool isActionInvoked = false;
 
             //Act
-            _viewInteractionStrategy.InvokeInDispatcher(contentControl, () =>
+            _viewInteractionStrategy.InvokeInUIThread(contentControl, () =>
             {
                 isActionInvoked = true;
             });

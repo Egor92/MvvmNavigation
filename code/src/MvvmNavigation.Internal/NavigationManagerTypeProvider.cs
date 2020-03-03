@@ -7,6 +7,7 @@ namespace Egor92.MvvmNavigation.Internal
     {
         private static readonly string[] AssemblyNames =
         {
+            "MvvmNavigation.Avalonia",
             "MvvmNavigation.Wpf"
         };
 
