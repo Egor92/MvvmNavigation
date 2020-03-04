@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MvvmNavigation.Samples.Common\Samples.Common.csproj" />
+    <ProjectReference Include="..\Samples.Common\Samples.Common.csproj" />
   </ItemGroup>
 
 </Project>

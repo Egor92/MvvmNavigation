@@ -93,7 +93,7 @@ namespace Egor92.MvvmNavigation
 
         private void InvokeInDispatcher(Action action)
         {
-            _viewInteractionStrategy.InvokeInDispatcher(_frameControl, action);
+            _viewInteractionStrategy.InvokeInUIThread(_frameControl, action);
         }
 
         private object CreateView(string navigationKey, object viewModel)

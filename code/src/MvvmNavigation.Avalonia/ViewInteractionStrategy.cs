@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Threading;
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Threading;
 using JetBrains.Annotations;
 
 namespace Egor92.MvvmNavigation
@@ -15,7 +15,7 @@ namespace Egor92.MvvmNavigation
                 throw new ArgumentNullException(nameof(control));
             }
 
-            if (!(control is ContentControl contentControl))
+            if (!(control is IContentControl contentControl))
             {
                 return null;
             }
@@ -30,7 +30,7 @@ namespace Egor92.MvvmNavigation
                 throw new ArgumentNullException(nameof(control));
             }
 
-            if (control is ContentControl contentControl)
+            if (control is IContentControl contentControl)
             {
                 contentControl.Content = content;
             }
@@ -43,9 +43,9 @@ namespace Egor92.MvvmNavigation
                 throw new ArgumentNullException(nameof(control));
             }
 
-            if (control is FrameworkElement frameworkElement)
+            if (control is IDataContextProvider dataContextProvider)
             {
-                return frameworkElement.DataContext;
+                return dataContextProvider.DataContext;
             }
 
             return null;
@@ -58,9 +58,9 @@ namespace Egor92.MvvmNavigation
                 throw new ArgumentNullException(nameof(control));
             }
 
-            if (control is FrameworkElement frameworkElement)
+            if (control is IDataContextProvider dataContextProvider)
             {
-                frameworkElement.DataContext = dataContext;
+                dataContextProvider.DataContext = dataContext;
             }
         }
 
@@ -76,19 +76,14 @@ namespace Egor92.MvvmNavigation
                 throw new ArgumentNullException(nameof(action));
             }
 
-            if (!(control is DispatcherObject dispatcherObject))
-            {
-                return;
-            }
-
-            var dispatcher = dispatcherObject.Dispatcher;
+            var dispatcher = Dispatcher.UIThread;
             if (dispatcher == null || dispatcher.CheckAccess())
             {
                 action();
             }
             else
             {
-                dispatcher.Invoke(action, DispatcherPriority.Normal);
+                dispatcher.InvokeAsync(action).GetAwaiter().GetResult();
             }
         }
     }
