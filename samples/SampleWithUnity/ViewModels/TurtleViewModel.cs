@@ -19,7 +19,7 @@ namespace SampleWithUnity.ViewModels
 
         #endregion
 
-        #region Name
+        #region Color
 
         public abstract string Color { get; }
 
