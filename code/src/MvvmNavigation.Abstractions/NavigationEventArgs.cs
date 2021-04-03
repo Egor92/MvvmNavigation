@@ -4,7 +4,7 @@ namespace Egor92.MvvmNavigation.Abstractions
 {
     public class NavigationEventArgs : EventArgs
     {
-        public NavigationEventArgs(object view, object viewModel, object navigationKey, object navigationArg)
+        public NavigationEventArgs(object view, object viewModel, string navigationKey, object navigationArg)
         {
             View = view;
             ViewModel = viewModel;
@@ -16,7 +16,7 @@ namespace Egor92.MvvmNavigation.Abstractions
 
         public object ViewModel { get; }
 
-        public object NavigationKey { get; }
+        public string NavigationKey { get; }
 
         public object NavigationArg { get; }
     }

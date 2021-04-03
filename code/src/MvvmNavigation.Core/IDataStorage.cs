@@ -4,10 +4,10 @@ namespace Egor92.MvvmNavigation
 {
     public interface IDataStorage
     {
-        void Add([NotNull] string key, [NotNull] NavigationData navigationData);
+        void Add([NotNull] string key, [NotNull] RegistrationData registrationData);
 
         bool IsExist([NotNull] string key);
 
-        NavigationData Get([NotNull] string key);
+        RegistrationData Get([NotNull] string key);
     }
 }

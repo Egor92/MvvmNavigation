@@ -386,7 +386,7 @@ namespace Egor92.MvvmNavigation.Unity.UnitTests
             _unityContainer.RegisterNavigationRule<InstanceClass, InstanceClass>(_navigationKey);
 
             //Assert
-            UnityAssert.IsRegisteredWithName<NavigationData>(_unityContainer, _navigationKey);
+            UnityAssert.IsRegisteredWithName<RegistrationData>(_unityContainer, _navigationKey);
         }
 
         [Test]
@@ -395,10 +395,10 @@ namespace Egor92.MvvmNavigation.Unity.UnitTests
             //Act
             _unityContainer.RegisterNavigationRule<InstanceClass, object>(_navigationKey);
 
-            var navigationData1 = _unityContainer.Resolve<NavigationData>(_navigationKey);
+            var navigationData1 = _unityContainer.Resolve<RegistrationData>(_navigationKey);
             var viewModel1 = navigationData1.ViewModelFunc();
 
-            var navigationData2 = _unityContainer.Resolve<NavigationData>(_navigationKey);
+            var navigationData2 = _unityContainer.Resolve<RegistrationData>(_navigationKey);
             var viewModel2 = navigationData2.ViewModelFunc();
 
             //Assert
@@ -411,10 +411,10 @@ namespace Egor92.MvvmNavigation.Unity.UnitTests
             //Act
             _unityContainer.RegisterNavigationRule<object, InstanceClass>(_navigationKey);
 
-            var navigationData1 = _unityContainer.Resolve<NavigationData>(_navigationKey);
+            var navigationData1 = _unityContainer.Resolve<RegistrationData>(_navigationKey);
             var view1 = navigationData1.ViewFunc();
 
-            var navigationData2 = _unityContainer.Resolve<NavigationData>(_navigationKey);
+            var navigationData2 = _unityContainer.Resolve<RegistrationData>(_navigationKey);
             var view2 = navigationData2.ViewFunc();
 
             //Assert

@@ -2,7 +2,7 @@
 {
     public static class ExceptionMessages
     {
-        public const string CanNotRegisterKeyTwice = "Cann't register navigation key twice";
+        public const string CanNotRegisterKeyTwice = "Can't register navigation key twice";
 
         public static string KeyIsNotRegistered(string navigationKey)
         {

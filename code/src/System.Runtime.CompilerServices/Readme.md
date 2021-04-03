@@ -1,0 +1,2 @@
+Folder 'System.Runtime.CompilerServices' contains classes that are reqiured to be added to projects with target framework netcore3.0 and netstandart2.0.
+These classes are required to use features of C# 9.0 and higher

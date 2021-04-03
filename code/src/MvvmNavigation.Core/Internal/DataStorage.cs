@@ -5,26 +5,39 @@ namespace Egor92.MvvmNavigation.Internal
 {
     internal class DataStorage : IDataStorage
     {
-        private readonly IDictionary<string, NavigationData> _navigationDataByKey = new Dictionary<string, NavigationData>();
+        private readonly IDictionary<string, RegistrationData> _navigationDataByKey = new Dictionary<string, RegistrationData>();
 
-        public void Add(string key, NavigationData navigationData)
+        public void Add(string key, RegistrationData registrationData)
         {
-            key = key ?? throw new ArgumentNullException(nameof(key));
-            navigationData = navigationData ?? throw new ArgumentNullException(nameof(navigationData));
+            if (key == null)
+            {
+                throw new ArgumentNullException(nameof(key));
+            }
 
-            _navigationDataByKey[key] = navigationData;
+            if (registrationData == null)
+            {
+                throw new ArgumentNullException(nameof(registrationData));
+            }
+
+            _navigationDataByKey[key] = registrationData;
         }
 
         public bool IsExist(string key)
         {
-            key = key ?? throw new ArgumentNullException(nameof(key));
+            if (key == null)
+            {
+                throw new ArgumentNullException(nameof(key));
+            }
 
             return _navigationDataByKey.ContainsKey(key);
         }
 
-        public NavigationData Get(string key)
+        public RegistrationData Get(string key)
         {
-            key = key ?? throw new ArgumentNullException(nameof(key));
+            if (key == null)
+            {
+                throw new ArgumentNullException(nameof(key));
+            }
 
             return _navigationDataByKey[key];
         }

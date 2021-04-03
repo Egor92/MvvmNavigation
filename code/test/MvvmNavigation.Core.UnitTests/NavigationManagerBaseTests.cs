@@ -1,7 +1,7 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using Egor92.MvvmNavigation.Core.ContractTests.Internal;
-using Egor92.MvvmNavigation.Tests.Common;
 using Moq;
 using NUnit.Framework;
 
@@ -28,7 +28,11 @@ namespace Egor92.MvvmNavigation.Core.UnitTests
             }
 
             //Assert
-            Assert.That(Action, ThrowsException.InnerException.NullArgument(ArgumentNames.ViewInteractionStrategy));
+            var exception = Assert.Catch<Exception>(Action);
+            Assert.That(exception.InnerException, Is.TypeOf<ArgumentNullException>());
+
+            var innerException = (ArgumentNullException) exception.InnerException;
+            Assert.That(innerException!.ParamName, Is.EqualTo(ArgumentNames.ViewInteractionStrategy));
         }
     }
 }

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
 using JetBrains.Annotations;
 
 namespace Egor92.MvvmNavigation
@@ -14,5 +16,9 @@ namespace Egor92.MvvmNavigation
         void SetDataContext([NotNull] object control, object dataContext);
 
         void InvokeInUIThread([NotNull] object control, [NotNull] Action action);
+
+        T InvokeInUiThread<T>([NotNull] object control, [NotNull] Func<T> action);
+
+        Task<T> InvokeInUiThreadAsync<T>([NotNull] object control, [NotNull] Func<T> action, CancellationToken token);
     }
 }
