@@ -1,0 +1,34 @@
+version: 2
+updates:
+- package-ecosystem: nuget
+  directory: "/code"
+  schedule:
+    interval: daily
+    time: "02:00"
+  open-pull-requests-limit: 10
+  target-branch: develop
+  reviewers:
+  - Egor92
+  assignees:
+  - Egor92
+  ignore:
+  - dependency-name: nunit
+    versions:
+    - 3.13.0
+    - 3.13.1
+  - dependency-name: Avalonia
+    versions:
+    - 0.10.0
+  - dependency-name: Microsoft.NET.Test.Sdk
+    versions:
+    - 16.8.3
+    - 16.9.1
+  - dependency-name: Moq
+    versions:
+    - 4.16.0
+  - dependency-name: JetBrains.Annotations
+    versions:
+    - 2020.3.0
+  - dependency-name: Unity
+    versions:
+    - 5.11.9
