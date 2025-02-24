@@ -1,5 +1,6 @@
 ﻿using System;
-using System.Diagnostics.CodeAnalysis;
+using System.Threading;
+using System.Threading.Tasks;
 using Egor92.MvvmNavigation.Abstractions;
 
 namespace Egor92.MvvmNavigation.Unity.UnitTests.Internal.Types
@@ -11,12 +12,28 @@ namespace Egor92.MvvmNavigation.Unity.UnitTests.Internal.Types
             throw new NotImplementedException();
         }
 
-        public void Navigate(string navigationKey, object arg)
+        public NavigationData Navigate(string navigationKey, object arg)
         {
             throw new NotImplementedException();
         }
 
-        [SuppressMessage("ReSharper", "UnusedMember.Global")]
+        public Task<NavigationData> NavigateAsync(string navigationKey, object arg, CancellationToken token = default)
+        {
+            throw new NotImplementedException();
+        }
+
+        public NavigationData NavigateBack()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<NavigationData> NavigateBackAsync(CancellationToken token = default)
+        {
+            throw new NotImplementedException();
+        }
+
+#pragma warning disable 67
         public event EventHandler<NavigationEventArgs> Navigated;
+#pragma warning restore 67
     }
 }

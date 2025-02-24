@@ -36,7 +36,7 @@ namespace Egor92.MvvmNavigation.Internal.UnitTests
             //Arrange
             var originalFrameControlType = typeof(object);
             var generatedType = ClassBuilder.CreateNewClass()
-                                            .WithNavigationManagerAttribute(originalFrameControlType)
+                                            .WithFrameControlType(originalFrameControlType)
                                             .Build();
 
             //Act
@@ -51,7 +51,7 @@ namespace Egor92.MvvmNavigation.Internal.UnitTests
         {
             //Arrange
             var generatedType = ClassBuilder.CreateNewClass()
-                                            .WithNavigationManagerAttribute(null)
+                                            .WithFrameControlType(null)
                                             .Build();
 
             //Act

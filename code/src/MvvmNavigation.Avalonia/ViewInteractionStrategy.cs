@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Threading;
@@ -84,6 +86,34 @@ namespace Egor92.MvvmNavigation
             else
             {
                 dispatcher.InvokeAsync(action).GetAwaiter().GetResult();
+            }
+        }
+
+        public T InvokeInUiThread<T>(object control, Func<T> action)
+        {
+            return InvokeInUiThreadAsync(control, action, default).GetAwaiter().GetResult();
+        }
+
+        public Task<T> InvokeInUiThreadAsync<T>(object control, Func<T> action, CancellationToken token)
+        {
+            if (control == null)
+            {
+                throw new ArgumentNullException(nameof(control));
+            }
+
+            if (action == null)
+            {
+                throw new ArgumentNullException(nameof(action));
+            }
+
+            var dispatcher = Dispatcher.UIThread;
+            if (dispatcher == null || dispatcher.CheckAccess())
+            {
+                return Task.FromResult(action());
+            }
+            else
+            {
+                return dispatcher.InvokeAsync(action);
             }
         }
     }

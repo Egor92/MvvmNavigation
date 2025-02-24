@@ -121,7 +121,7 @@ namespace Egor92.MvvmNavigation.Unity
             if (typeof(TView).IsAbstract)
                 throw new ArgumentException(ExceptionMessages.CanNotRegisterAbstractClassAsView<TView>());
 
-            var navigationData = new NavigationData(ViewModelFunc, ViewFunc);
+            var navigationData = new RegistrationData(ViewModelFunc, ViewFunc);
             unityContainer.RegisterInstance(navigationKey, navigationData, new ContainerControlledLifetimeManager());
 
             object ViewModelFunc()

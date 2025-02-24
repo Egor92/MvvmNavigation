@@ -10,13 +10,13 @@ namespace Egor92.MvvmNavigation.Core.ContractTests.InternalTests
 
     {
         private TDataStorage _dataStorage;
-        private NavigationData _navigationData;
+        private RegistrationData _registrationData;
 
         [SetUp]
         public virtual void SetUp()
         {
             _dataStorage = CreateDataStorage();
-            _navigationData = new NavigationData(() => new object(), () => new object());
+            _registrationData = new RegistrationData(() => new object(), () => new object());
         }
 
         protected abstract TDataStorage CreateDataStorage();
@@ -29,7 +29,7 @@ namespace Egor92.MvvmNavigation.Core.ContractTests.InternalTests
             //Act
             TestDelegate action = () =>
             {
-                _dataStorage.Add(null, _navigationData);
+                _dataStorage.Add(null, _registrationData);
             };
 
             //Assert
@@ -91,7 +91,7 @@ namespace Egor92.MvvmNavigation.Core.ContractTests.InternalTests
             const string key = "key";
 
             //Act
-            _dataStorage.Add(key, _navigationData);
+            _dataStorage.Add(key, _registrationData);
 
             bool isExist = _dataStorage.IsExist(key);
 

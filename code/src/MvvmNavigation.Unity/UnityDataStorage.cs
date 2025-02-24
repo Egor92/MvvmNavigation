@@ -13,19 +13,19 @@ namespace Egor92.MvvmNavigation.Unity
             _unityContainer = unityContainer ?? throw new ArgumentNullException(nameof(unityContainer));
         }
 
-        public void Add(string key, NavigationData navigationData)
+        public void Add(string key, RegistrationData registrationData)
         {
             if (key == null)
             {
                 throw new ArgumentNullException(nameof(key));
             }
 
-            if (navigationData == null)
+            if (registrationData == null)
             {
-                throw new ArgumentNullException(nameof(navigationData));
+                throw new ArgumentNullException(nameof(registrationData));
             }
 
-            _unityContainer.RegisterInstance(key, navigationData);
+            _unityContainer.RegisterInstance(key, registrationData);
         }
 
         public bool IsExist(string key)
@@ -35,17 +35,17 @@ namespace Egor92.MvvmNavigation.Unity
                 throw new ArgumentNullException(nameof(key));
             }
 
-            return _unityContainer.IsRegistered<NavigationData>(key);
+            return _unityContainer.IsRegistered<RegistrationData>(key);
         }
 
-        public NavigationData Get(string key)
+        public RegistrationData Get(string key)
         {
             if (key == null)
             {
                 throw new ArgumentNullException(nameof(key));
             }
 
-            return _unityContainer.Resolve<NavigationData>(key);
+            return _unityContainer.Resolve<RegistrationData>(key);
         }
     }
 }

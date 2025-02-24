@@ -14,7 +14,7 @@ namespace Egor92.MvvmNavigation.Core.UnitTests.InternalTests
 
         protected override void SetupIsExistTrue(DataStorage dataStorage, string key)
         {
-            var navigationData = new NavigationData(() => new object(), () => new object());
+            var navigationData = new RegistrationData(() => new object(), () => new object());
             dataStorage.Add(key, navigationData);
         }
     }

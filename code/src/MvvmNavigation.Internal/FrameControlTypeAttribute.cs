@@ -2,9 +2,9 @@
 
 namespace Egor92.MvvmNavigation.Internal
 {
-    internal class NavigationManagerAttribute : Attribute
+    internal class FrameControlTypeAttribute : Attribute
     {
-        internal NavigationManagerAttribute(Type frameControlType)
+        internal FrameControlTypeAttribute(Type frameControlType)
         {
             FrameControlType = frameControlType;
         }

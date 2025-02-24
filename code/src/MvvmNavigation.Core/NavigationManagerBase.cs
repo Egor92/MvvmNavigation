@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using Egor92.MvvmNavigation.Abstractions;
 using Egor92.MvvmNavigation.Internal;
 using JetBrains.Annotations;
@@ -9,9 +12,8 @@ namespace Egor92.MvvmNavigation
     {
         #region Fields
 
-        private readonly object _frameControl;
-        private readonly IViewInteractionStrategy _viewInteractionStrategy;
-        private readonly IDataStorage _dataStorage;
+        private readonly Stack<NavigationData> _navigationHistory = new();
+        private readonly Navigator _navigator;
 
         #endregion
 
@@ -23,12 +25,10 @@ namespace Egor92.MvvmNavigation
         }
 
         protected NavigationManagerBase([NotNull] object frameControl,
-                                        IViewInteractionStrategy viewInteractionStrategy,
-                                        [NotNull] IDataStorage dataStorage)
+            IViewInteractionStrategy viewInteractionStrategy,
+            [NotNull] IDataStorage dataStorage)
         {
-            _frameControl = frameControl ?? throw new ArgumentNullException(nameof(frameControl));
-            _viewInteractionStrategy = viewInteractionStrategy ?? throw new ArgumentNullException(nameof(viewInteractionStrategy));
-            _dataStorage = dataStorage ?? throw new ArgumentNullException(nameof(dataStorage));
+            _navigator = new Navigator(frameControl, viewInteractionStrategy, dataStorage);
         }
 
         #endregion
@@ -46,89 +46,51 @@ namespace Egor92.MvvmNavigation
 
         public void Register([NotNull] string navigationKey, [NotNull] Func<object> getViewModel, [NotNull] Func<object> getView)
         {
-            if (navigationKey == null)
-                throw new ArgumentNullException(nameof(navigationKey));
-
-            if (getViewModel == null)
-                throw new ArgumentNullException(nameof(getViewModel));
-
-            if (getView == null)
-                throw new ArgumentNullException(nameof(getView));
-
-            var isKeyAlreadyRegistered = _dataStorage.IsExist(navigationKey);
-            if (isKeyAlreadyRegistered)
-                throw new InvalidOperationException(ExceptionMessages.CanNotRegisterKeyTwice);
-
-            var navigationData = new NavigationData(getViewModel, getView);
-            _dataStorage.Add(navigationKey, navigationData);
+            _navigator.Register(navigationKey, getViewModel, getView);
         }
 
         public bool CanNavigate(string navigationKey)
         {
-            return _dataStorage.IsExist(navigationKey);
+            return _navigator.CanNavigate(navigationKey);
         }
 
-        public void Navigate(string navigationKey, object arg)
+        public NavigationData Navigate(string navigationKey, object arg)
         {
-            if (navigationKey == null)
-                throw new ArgumentNullException(nameof(navigationKey));
+            var navigationData = _navigator.Navigate(navigationKey, arg);
+            var navigationEventArgs = new NavigationEventArgs(navigationData.View, navigationData.ViewModel, navigationKey, arg);
+            SaveNavigationHistory(navigationData.ViewModel, navigationData.View);
+            RaiseNavigated(navigationEventArgs);
+            return navigationData;
+        }
 
-            var isKeyRegistered = CanNavigate(navigationKey);
-            if (!isKeyRegistered)
-                throw new InvalidOperationException(ExceptionMessages.KeyIsNotRegistered(navigationKey));
+        public async Task<NavigationData> NavigateAsync(string navigationKey, object arg, CancellationToken token = default)
+        {
+            var navigationData = await _navigator.NavigateAsync(navigationKey, arg, token);
+            var navigationEventArgs = new NavigationEventArgs(navigationData.View, navigationData.ViewModel, navigationKey, arg);
+            SaveNavigationHistory(navigationData.ViewModel, navigationData.View);
+            RaiseNavigated(navigationEventArgs);
+            return navigationData;
+        }
 
-            InvokeInDispatcher(() =>
+        private void SaveNavigationHistory(object viewModel, object view)
+        {
+            _navigationHistory.Push(new NavigationData
             {
-                InvokeNavigatedFrom();
-                var viewModel = GetViewModel(navigationKey);
-
-                var view = CreateView(navigationKey, viewModel);
-                _viewInteractionStrategy.SetContent(_frameControl, view);
-                InvokeNavigatedTo(viewModel, arg);
-
-                var navigationEventArgs = new NavigationEventArgs(view, viewModel, navigationKey, arg);
-                RaiseNavigated(navigationEventArgs);
+                ViewModel = viewModel,
+                View = view,
             });
         }
 
-        private void InvokeInDispatcher(Action action)
+        public NavigationData NavigateBack()
         {
-            _viewInteractionStrategy.InvokeInUIThread(_frameControl, action);
+            var navigationData = _navigationHistory.Pop();
+            return _navigator.Navigate(navigationData.View);
         }
 
-        private object CreateView(string navigationKey, object viewModel)
+        public Task<NavigationData> NavigateBackAsync(CancellationToken token = default)
         {
-            var navigationData = _dataStorage.Get(navigationKey);
-            var view = navigationData.ViewFunc();
-            if (view != null)
-            {
-                _viewInteractionStrategy.SetDataContext(view, viewModel);
-            }
-
-            return view;
-        }
-
-        private object GetViewModel(string navigationKey)
-        {
-            var navigationData = _dataStorage.Get(navigationKey);
-            return navigationData.ViewModelFunc();
-        }
-
-        private void InvokeNavigatedFrom()
-        {
-            var oldView = _viewInteractionStrategy.GetContent(_frameControl);
-            if (oldView != null)
-            {
-                var oldViewModel = _viewInteractionStrategy.GetDataContext(oldView);
-                var navigationAware = oldViewModel as INavigatingFromAware;
-                navigationAware?.OnNavigatingFrom();
-            }
-        }
-
-        private static void InvokeNavigatedTo(object viewModel, object arg)
-        {
-            var navigationAware = viewModel as INavigatedToAware;
-            navigationAware?.OnNavigatedTo(arg);
+            var navigationData = _navigationHistory.Pop();
+            return _navigator.NavigateAsync(navigationData.View, token);
         }
     }
 }

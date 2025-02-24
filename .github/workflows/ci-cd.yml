@@ -1,0 +1,89 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+env:
+  ASSEMBLY_VERSION: 3.3.0 # Задаём версию сборки
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0 # Получаем всю историю коммитов для создания тега
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '3.1.x' # Укажите нужную версию .NET SDK
+
+    - name: Get and Increment Build Number
+      id: build_number
+      env:
+        BUILD_NUMBER: ${{ vars.BUILD_NUMBER }}
+      run: |
+        # Получаем текущее значение номера сборки
+        CURRENT_BUILD_NUMBER=$BUILD_NUMBER
+        echo "Current Build Number: $CURRENT_BUILD_NUMBER"
+
+        # Увеличиваем номер сборки на 1
+        NEW_BUILD_NUMBER=$((CURRENT_BUILD_NUMBER + 1))
+        echo "New Build Number: $NEW_BUILD_NUMBER"
+
+        # Сохраняем новое значение номера сборки в переменную
+        echo "::set-output name=new_build_number::$NEW_BUILD_NUMBER"
+        echo "::set-env name=BUILD_NUMBER::$NEW_BUILD_NUMBER"
+
+    - name: Update Build Number Variable
+      uses: actions/github-script@v6
+      with:
+        script: |
+          await github.rest.actions.updateRepoVariable({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            name: 'BUILD_NUMBER',
+            value: process.env.BUILD_NUMBER
+          });
+
+    - name: Restore dependencies
+      run: dotnet restore
+
+    - name: Build project
+      env:
+        BuildNumber: ${{ steps.build_number.outputs.new_build_number }}
+      run: |
+        dotnet build --configuration Release --no-restore /p:AssemblyVersion=$ASSEMBLY_VERSION /p:AssemblyFileVersion=$ASSEMBLY_VERSION.$BuildNumber /p:AssemblyInformationalVersion=$ASSEMBLY_VERSION.$BuildNumber
+
+    - name: Run tests
+      run: dotnet test --no-restore --verbosity normal
+
+    - name: Pack NuGet package
+      run: dotnet pack --configuration Release --no-build --output ./artifacts
+
+    - name: Publish NuGet package
+      if: github.ref == 'refs/heads/master'
+      run: dotnet nuget push ./artifacts/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+
+    - name: Create Git Tag
+      if: github.ref == 'refs/heads/master'
+      run: |
+        # Формируем имя тега
+        TAG_NAME="release-$ASSEMBLY_VERSION"
+        echo "Creating tag: $TAG_NAME"
+
+        # Создаём тег
+        git tag -a $TAG_NAME -m "Release $TAG_NAME"
+
+        # Отправляем тег в репозиторий
+        git push origin $TAG_NAME
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Используем встроенный токен для отправки тега

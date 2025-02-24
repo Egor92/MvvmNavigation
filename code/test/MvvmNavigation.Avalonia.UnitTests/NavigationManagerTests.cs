@@ -49,7 +49,7 @@ namespace Egor92.MvvmNavigation.Avalonia.UnitTests
         {
             if (canNavigate)
             {
-                navigationManager.Register(navigationKey, () => null, () => null);
+                navigationManager.Register(navigationKey, () => new object(), () => new ContentControl());
             }
         }
     }
