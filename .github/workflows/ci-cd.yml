@@ -9,7 +9,7 @@ on:
       - master
 
 env:
-  ASSEMBLY_VERSION: 3.4.0 # Задаём версию сборки
+  ASSEMBLY_VERSION: 3.3.0 # Задаём версию сборки
 
 jobs:
   build:
