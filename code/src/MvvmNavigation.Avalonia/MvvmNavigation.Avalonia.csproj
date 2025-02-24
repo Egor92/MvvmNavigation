@@ -9,7 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="Avalonia" Version="0.9.0" />
-    <PackageReference Include="JetBrains.Annotations" Version="2020.1.0" />
+    <PackageReference Include="JetBrains.Annotations" Version="2021.2.0" />
   </ItemGroup>
 
   <ItemGroup>
