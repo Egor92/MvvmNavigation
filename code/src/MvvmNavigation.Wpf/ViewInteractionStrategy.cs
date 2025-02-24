@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
+using Egor92.MvvmNavigation.Internal;
 using JetBrains.Annotations;
 
 namespace Egor92.MvvmNavigation
@@ -64,6 +67,7 @@ namespace Egor92.MvvmNavigation
             }
         }
 
+        [Obsolete]
         public void InvokeInUIThread(object control, Action action)
         {
             if (control == null)
@@ -89,6 +93,63 @@ namespace Egor92.MvvmNavigation
             else
             {
                 dispatcher.Invoke(action, DispatcherPriority.Normal);
+            }
+        }
+
+        public T InvokeInUiThread<T>(object control, Func<T> action)
+        {
+            if (control == null)
+            {
+                throw new ArgumentNullException(nameof(control));
+            }
+
+            if (action == null)
+            {
+                throw new ArgumentNullException(nameof(action));
+            }
+
+            if (!(control is DispatcherObject dispatcherObject))
+            {
+                throw new ArgumentException(ExceptionMessages.ControlIsNotOfTypeDispatcherObject);
+            }
+
+            var dispatcher = dispatcherObject.Dispatcher;
+            if (dispatcher == null || dispatcher.CheckAccess())
+            {
+                return action();
+            }
+            else
+            {
+                return dispatcher.Invoke(action, DispatcherPriority.Normal);
+            }
+        }
+
+        public Task<T> InvokeInUiThreadAsync<T>(object control, Func<T> action, CancellationToken token)
+        {
+            if (control == null)
+            {
+                throw new ArgumentNullException(nameof(control));
+            }
+
+            if (action == null)
+            {
+                throw new ArgumentNullException(nameof(action));
+            }
+
+            if (!(control is DispatcherObject dispatcherObject))
+            {
+                throw new ArgumentException(ExceptionMessages.ControlIsNotOfTypeDispatcherObject);
+            }
+
+            var dispatcher = dispatcherObject.Dispatcher;
+            if (dispatcher == null || dispatcher.CheckAccess())
+            {
+                return Task.FromResult(action());
+            }
+            else
+            {
+                var dispatcherOperation = dispatcher.InvokeAsync(action, DispatcherPriority.Normal);
+                return dispatcherOperation.Task;
             }
         }
     }

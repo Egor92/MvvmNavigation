@@ -50,7 +50,7 @@ namespace Egor92.MvvmNavigation.Wpf.UnitTests
         {
             if (canNavigate)
             {
-                navigationManager.Register(navigationKey, () => null, () => null);
+                navigationManager.Register(navigationKey, () => new object(), () => new ContentControl());
             }
         }
     }

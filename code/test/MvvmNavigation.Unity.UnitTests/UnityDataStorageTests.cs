@@ -33,7 +33,7 @@ namespace Egor92.MvvmNavigation.Unity.UnitTests
 
         protected override void SetupIsExistTrue(UnityDataStorage dataStorage, string key)
         {
-            var navigationData = new NavigationData(() => new object(), () => new object());
+            var navigationData = new RegistrationData(() => new object(), () => new object());
             _unityContainer.RegisterInstance(key, navigationData);
         }
 

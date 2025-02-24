@@ -13,16 +13,8 @@
 
   <PropertyGroup Label="Project information">
     <RootNamespace>$(Company).$(MSBuildProjectName)</RootNamespace>
-	<LangVersion>latest</LangVersion>
-  </PropertyGroup>
-
-  <PropertyGroup Label="Version">
-    <!-- Empty 'Version' is required for Appveyor -->
-    <Version />
-	<!-- Empty 'FileVersion' is required for Appveyor -->
-    <FileVersion />
-	<!-- Empty 'InformationalVersion' is required for Appveyor -->
-    <InformationalVersion />
+    <Nullable>disable</Nullable>
+    <LangVersion>13</LangVersion>
   </PropertyGroup>
   
   <PropertyGroup Label="Release configuration">

@@ -8,7 +8,7 @@ namespace Egor92.MvvmNavigation.Internal
         public Type GetFrameControlType(Type navigationManagerType)
         {
             var attributeData = navigationManagerType.GetCustomAttributesData()
-                                                     .FirstOrDefault(a => a.AttributeType == typeof(NavigationManagerAttribute));
+                                                     .FirstOrDefault(a => a.AttributeType == typeof(FrameControlTypeAttribute));
 
             if (attributeData?.ConstructorArguments.Count != 1)
             {

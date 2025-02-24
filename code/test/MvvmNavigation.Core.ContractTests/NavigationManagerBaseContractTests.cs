@@ -345,5 +345,59 @@ namespace Egor92.MvvmNavigation.Core.ContractTests
                 Assert.That(eventArgs.NavigationArg, Is.EqualTo(navigationArg));
             });
         }
+
+        [Test]
+        public void NavigateBack_NavigationWasExecuted_Return()
+        {
+            // Arrange
+            var navigationKey1 = "navigationKey1";
+            var viewModel1 = new object();
+            var view1 = new TView();
+            RegisterNavigationRule(_navigationManager, navigationKey1, () => viewModel1, () => view1);
+
+            var navigationKey2 = "navigationKey2";
+            var viewModel2 = new object();
+            var view2 = new TView();
+            RegisterNavigationRule(_navigationManager, navigationKey2, () => viewModel2, () => view2);
+
+            _navigationManager.Navigate(navigationKey1);
+
+            // Act
+            _navigationManager.NavigateBack();
+
+            // Assert
+            var actualView = GetContent(_frameControl);
+            var actualViewModel = GetDataContext(actualView);
+
+            Assert.That(actualView, Is.EqualTo(view1));
+            Assert.That(actualViewModel, Is.EqualTo(viewModel1));
+        }
+        
+        [Test]
+        public async Task NavigateBackAsync_NavigationWasExecuted_Return()
+        {
+            // Arrange
+            var navigationKey1 = "navigationKey1";
+            var viewModel1 = new object();
+            var view1 = new TView();
+            RegisterNavigationRule(_navigationManager, navigationKey1, () => viewModel1, () => view1);
+
+            var navigationKey2 = "navigationKey2";
+            var viewModel2 = new object();
+            var view2 = new TView();
+            RegisterNavigationRule(_navigationManager, navigationKey2, () => viewModel2, () => view2);
+
+            _navigationManager.Navigate(navigationKey1);
+
+            // Act
+            await _navigationManager.NavigateBackAsync();
+
+            // Assert
+            var actualView = GetContent(_frameControl);
+            var actualViewModel = GetDataContext(actualView);
+
+            Assert.That(actualView, Is.EqualTo(view1));
+            Assert.That(actualViewModel, Is.EqualTo(viewModel1));
+        }
     }
 }
