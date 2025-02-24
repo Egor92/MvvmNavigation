@@ -6,6 +6,8 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution items", "Solution items", "{A6FDCF5D-6C3E-4042-9CA9-C11FF327DDD3}"
 	ProjectSection(SolutionItems) = preProject
 		Directory.Build.props = Directory.Build.props
+		src\Directory.Build.props = src\Directory.Build.props
+		version.props = version.props
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Source", "Source", "{E31339A4-1C1F-48AC-AE56-029CFD04B33E}"
@@ -52,7 +54,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MvvmNavigation.Tests.Common
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MvvmNavigation.Internal.ContractTests", "test\MvvmNavigation.Internal.ContractTests\MvvmNavigation.Internal.ContractTests.csproj", "{76FB8979-F2EB-4C91-9894-7BBA2E4014D9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvvmNavigation.Avalonia.Unity.IntegrationTests", "test\MvvmNavigation.Avalonia.Unity.IntegrationTests\MvvmNavigation.Avalonia.Unity.IntegrationTests.csproj", "{990D042A-6DF0-4BBD-8117-D42184C3309E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MvvmNavigation.Avalonia.Unity.IntegrationTests", "test\MvvmNavigation.Avalonia.Unity.IntegrationTests\MvvmNavigation.Avalonia.Unity.IntegrationTests.csproj", "{990D042A-6DF0-4BBD-8117-D42184C3309E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MvvmNavigation.Avalonia.UnitTests", "test\MvvmNavigation.Avalonia.UnitTests\MvvmNavigation.Avalonia.UnitTests.csproj", "{31DA5F00-E708-4661-AFE9-CC3EFE952ABA}"
 EndProject
