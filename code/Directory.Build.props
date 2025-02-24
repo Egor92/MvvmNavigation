@@ -1,4 +1,6 @@
 <Project>
+  <Import Project="version.props" />
+
   <PropertyGroup Label="Nuget package information">
     <Authors>Egor92</Authors>
     <Company>Egor92</Company>
@@ -13,16 +15,8 @@
 
   <PropertyGroup Label="Project information">
     <RootNamespace>$(Company).$(MSBuildProjectName)</RootNamespace>
-	<LangVersion>latest</LangVersion>
-  </PropertyGroup>
-
-  <PropertyGroup Label="Version">
-    <!-- Empty 'Version' is required for Appveyor -->
-    <Version />
-	<!-- Empty 'FileVersion' is required for Appveyor -->
-    <FileVersion />
-	<!-- Empty 'InformationalVersion' is required for Appveyor -->
-    <InformationalVersion />
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
   
   <PropertyGroup Label="Release configuration">
