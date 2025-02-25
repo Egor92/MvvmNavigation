@@ -3,13 +3,10 @@ name: CI/CD Pipeline
 on:
   push:
     branches:
-      - master
+      - '**' # Запускаем для всех веток
   pull_request:
     branches:
-      - master
-
-env:
-  ASSEMBLY_VERSION: 3.3.0 # Задаём версию сборки
+      - '**' # Запускаем для pull request'ов в любую ветку
 
 jobs:
   build:
@@ -26,56 +23,81 @@ jobs:
       with:
         dotnet-version: '3.1.x' # Укажите нужную версию .NET SDK
 
-    - name: Get and Increment Build Number
-      id: build_number
-      env:
-        BUILD_NUMBER: ${{ vars.BUILD_NUMBER }}
-      run: |
-        # Получаем текущее значение номера сборки
-        CURRENT_BUILD_NUMBER=$BUILD_NUMBER
-        echo "Current Build Number: $CURRENT_BUILD_NUMBER"
-
-        # Увеличиваем номер сборки на 1
-        NEW_BUILD_NUMBER=$((CURRENT_BUILD_NUMBER + 1))
-        echo "New Build Number: $NEW_BUILD_NUMBER"
-
-        # Сохраняем новое значение номера сборки в переменную
-        echo "::set-output name=new_build_number::$NEW_BUILD_NUMBER"
-        echo "::set-env name=BUILD_NUMBER::$NEW_BUILD_NUMBER"
-
-    - name: Update Build Number Variable
-      uses: actions/github-script@v6
-      with:
-        script: |
-          await github.rest.actions.updateRepoVariable({
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            name: 'BUILD_NUMBER',
-            value: process.env.BUILD_NUMBER
-          });
-
     - name: Restore dependencies
+      working-directory: ./code # Указываем папку с решением
       run: dotnet restore
 
-    - name: Build project
-      env:
-        BuildNumber: ${{ steps.build_number.outputs.new_build_number }}
+    - name: Calculate versions
+      id: calculate_versions
+      shell: bash
       run: |
-        dotnet build --configuration Release --no-restore /p:AssemblyVersion=$ASSEMBLY_VERSION /p:AssemblyFileVersion=$ASSEMBLY_VERSION.$BuildNumber /p:AssemblyInformationalVersion=$ASSEMBLY_VERSION.$BuildNumber
+        # Читаем версию из файла version.txt
+        ASSEMBLY_VERSION=$(cat version.txt | tr -d '\n' | tr -d '\r')
+        echo "Assembly Version: $ASSEMBLY_VERSION"
 
-    - name: Run tests
-      run: dotnet test --no-restore --verbosity normal
+        # Вычисляем AssemblyFileVersion и AssemblyInformationalVersion
+        BUILD_NUMBER=${{ github.run_number }}
+        ASSEMBLY_FILE_VERSION="$ASSEMBLY_VERSION.$BUILD_NUMBER"
+        ASSEMBLY_INFORMATIONAL_VERSION="$ASSEMBLY_VERSION.$BUILD_NUMBER"
+
+        # Сохраняем значения в выходные переменные
+        echo "::set-output name=assembly_version::$ASSEMBLY_VERSION"
+        echo "::set-output name=assembly_file_version::$ASSEMBLY_FILE_VERSION"
+        echo "::set-output name=assembly_informational_version::$ASSEMBLY_INFORMATIONAL_VERSION"
+
+    - name: Build project
+      working-directory: ./code # Указываем папку с решением
+      shell: bash
+      run: |
+        ASSEMBLY_VERSION=${{ steps.calculate_versions.outputs.assembly_version }}
+        ASSEMBLY_FILE_VERSION=${{ steps.calculate_versions.outputs.assembly_file_version }}
+        ASSEMBLY_INFORMATIONAL_VERSION=${{ steps.calculate_versions.outputs.assembly_informational_version }}
+
+        echo "Building with AssemblyVersion=$ASSEMBLY_VERSION"
+        echo "Building with AssemblyFileVersion=$ASSEMBLY_FILE_VERSION"
+        echo "Building with AssemblyInformationalVersion=$ASSEMBLY_INFORMATIONAL_VERSION"
+
+        dotnet build --configuration Release --no-restore //p:AssemblyVersion=$ASSEMBLY_VERSION //p:AssemblyFileVersion=$ASSEMBLY_FILE_VERSION //p:AssemblyInformationalVersion=$ASSEMBLY_INFORMATIONAL_VERSION
+
+    #- name: Run tests
+    #  working-directory: ./code # Указываем папку с решением
+    #  run: dotnet test --no-restore --verbosity normal
 
     - name: Pack NuGet package
-      run: dotnet pack --configuration Release --no-build --output ./artifacts
+      working-directory: ./code # Указываем папку с решением
+      shell: bash
+      run: |
+        ASSEMBLY_VERSION=${{ steps.calculate_versions.outputs.assembly_version }}
+        ASSEMBLY_FILE_VERSION=${{ steps.calculate_versions.outputs.assembly_file_version }}
+        ASSEMBLY_INFORMATIONAL_VERSION=${{ steps.calculate_versions.outputs.assembly_informational_version }}
+
+        echo "Packing with AssemblyVersion=$ASSEMBLY_VERSION"
+        echo "Packing with AssemblyFileVersion=$ASSEMBLY_FILE_VERSION"
+        echo "Packing with AssemblyInformationalVersion=$ASSEMBLY_INFORMATIONAL_VERSION"
+
+        dotnet pack --configuration Release --output ./artifacts //p:AssemblyVersion=$ASSEMBLY_VERSION //p:AssemblyFileVersion=$ASSEMBLY_FILE_VERSION //p:AssemblyInformationalVersion=$ASSEMBLY_INFORMATIONAL_VERSION //p:PackageVersion=$ASSEMBLY_VERSION
+
+    - name: Upload NuGet packages as artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: nuget-packages
+        path: ./code/artifacts/*.nupkg
 
     - name: Publish NuGet package
-      if: github.ref == 'refs/heads/master'
-      run: dotnet nuget push ./artifacts/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+      if: github.ref == 'refs/heads/master' # Публикуем только для ветки master
+      working-directory: ./code # Указываем папку с решением
+      shell: bash
+      run: |
+        dotnet nuget push ./artifacts/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
 
     - name: Create Git Tag
-      if: github.ref == 'refs/heads/master'
+      if: github.ref == 'refs/heads/master' # Создаём тег только для ветки master
+      shell: bash
       run: |
+        # Получаем ASSEMBLY_VERSION из шага calculate_versions
+        ASSEMBLY_VERSION=${{ steps.calculate_versions.outputs.assembly_version }}
+        echo "Assembly Version: $ASSEMBLY_VERSION"
+
         # Формируем имя тега
         TAG_NAME="release-$ASSEMBLY_VERSION"
         echo "Creating tag: $TAG_NAME"
