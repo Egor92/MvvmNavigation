@@ -2,13 +2,13 @@
   <PropertyGroup Label="Nuget package information">
     <Authors>Egor92</Authors>
     <Company>Egor92</Company>
-    <Description>MVVM friendly library for easy navigation management in WPF application</Description>
+    <Description>MVVM friendly library for easy navigation management in WPF and Avalonia applications</Description>
     <Trademark>$(Company)™</Trademark>
     <Copyright>Copyright © $(Company) $([System.DateTime]::Now.Year)</Copyright>
     <PackageProjectUrl>https://github.com/Egor92/MvvmNavigation</PackageProjectUrl>
     <PackageLicenseUrl>https://github.com/Egor92/MvvmNavigation/blob/master/LICENSE</PackageLicenseUrl>
     <RepositoryUrl>https://github.com/Egor92/MvvmNavigation</RepositoryUrl>
-    <PackageTags>mvvm;navigation;page;wpf</PackageTags>
+    <PackageTags>mvvm;navigation;page;wpf;avalonia;avalonia-ui;unity</PackageTags>
   </PropertyGroup>
 
   <PropertyGroup Label="Project information">
