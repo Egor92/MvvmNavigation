@@ -10,7 +10,7 @@
 
 Go to [english page](https://github.com/Egor92/MvvmNavigation/blob/master/README.md)
 
-Данная библиотека позволяет настраивать поведение навигации вашего WPF приложения и реализовать навигацию на уровне слоя ViewModel. Библиотека полностью придерживается паттерна MVVM.
+Данная библиотека позволяет настраивать навигацию для ваших приложений WPF и Avalinia и реализовывать навигацию на уровне слоя ViewModel. Библиотека полностью придерживается паттерна MVVM.
 
 ## Содерание
 
@@ -18,11 +18,15 @@ Go to [english page](https://github.com/Egor92/MvvmNavigation/blob/master/README
 
 - [Как использовать с Unity](#Как-использовать-с-Unity)
 
+- [Nuget пакет для проекта слоя ViewModel](#Nuget-пакет-для-проекта-слоя-ViewModel)
+
 - [Примеры](#Примеры)
 
 ## Как использовать
 
-1. Установите NuGet пакет [MvvmNavigation.Wpf](https://www.nuget.org/packages/MvvmNavigation.Wpf/)
+1. Установите один из этих NuGet пакетов
+ - [MvvmNavigation.Wpf](https://www.nuget.org/packages/MvvmNavigation.Wpf/) для приложения WPF
+ - [MvvmNavigation.Avalonia](https://www.nuget.org/packages/MvvmNavigation.Avalonia/) для приложения Avalonia
 
 1. Определите привала навигации:
    ```csharp
@@ -73,7 +77,7 @@ Go to [english page](https://github.com/Egor92/MvvmNavigation/blob/master/README
 MvvmNavigation поддерживает Unity из коробки.
 
 1. Установите 2 NuGet пакета:
- - [MvvmNavigation.Wpf](https://www.nuget.org/packages/MvvmNavigation.Wpf/)
+ - [MvvmNavigation.Wpf](https://www.nuget.org/packages/MvvmNavigation.Wpf/) или [MvvmNavigation.Avalonia](https://www.nuget.org/packages/MvvmNavigation.Avalonia/)
  - [MvvmNavigation.Unity](https://www.nuget.org/packages/MvvmNavigation.Unity/)
 
 2. Определите привала навигации через UnityContainer:
@@ -121,6 +125,10 @@ MvvmNavigation поддерживает Unity из коробки.
         }
     }
    ```
+
+## Nuget пакет для проекта слоя ViewModel
+
+Если у вас есть отдельный проект для слоя ViewModel, используйте для него [MvvmNavigation.Abstractions](https://www.nuget.org/packages/MvvmNavigation.Abstractions/). Он содержит необходимые интерфейсы для управления навигацией, такие как INavigationManager.
 
 ## Примеры
 

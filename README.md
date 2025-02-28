@@ -10,7 +10,7 @@
 
 Перейти на [русскую страницу](https://github.com/Egor92/MvvmNavigation/blob/master/README.RUS.md)
 
-This library allows you to adjust navigation behavior in your WPF application and implement ViewModel-based navigation. This library completely adhere to MVVM pattern.
+This library allows you to adjust navigation behavior in your WPF and Avalonia applications and implement ViewModel-based navigation. This library completely adhere to MVVM pattern.
 
 ## Contents
 
@@ -18,11 +18,15 @@ This library allows you to adjust navigation behavior in your WPF application an
 
 - [Usage with Unity](#Usage-with-Unity)
 
+- [Nuget package for ViewModel layer project](#Nuget-package-for-ViewModel-layer-project)
+
 - [Samples](#Samples)
 
 ## Usage
 
-1. Install NuGet package [MvvmNavigation.Wpf](https://www.nuget.org/packages/MvvmNavigation.Wpf/)
+1. Install one of these NuGet packages:
+ - [MvvmNavigation.Wpf](https://www.nuget.org/packages/MvvmNavigation.Wpf/) for WPF application
+ - [MvvmNavigation.Avalonia](https://www.nuget.org/packages/MvvmNavigation.Avalonia/) for Avalonia application
 
 1. Define navigation rules:
    ```csharp
@@ -73,10 +77,10 @@ This library allows you to adjust navigation behavior in your WPF application an
 MvvmNavigation supports Unity out of the box.
 
 1. Install two NuGet packages
- - [MvvmNavigation.Wpf](https://www.nuget.org/packages/MvvmNavigation.Wpf/)
+ - [MvvmNavigation.Wpf](https://www.nuget.org/packages/MvvmNavigation.Wpf/) or [MvvmNavigation.Avalonia](https://www.nuget.org/packages/MvvmNavigation.Avalonia/)
  - [MvvmNavigation.Unity](https://www.nuget.org/packages/MvvmNavigation.Unity/)
 
-2. Define navigation rules via UnityContainer:
+1. Define navigation rules via UnityContainer:
 
    ```csharp
     public partial class App : Application
@@ -103,7 +107,7 @@ MvvmNavigation supports Unity out of the box.
     }
    ```
 
-3. Сall *Navigate* method in your ViewModel in order to switch UI
+1. Сall *Navigate* method in your ViewModel in order to switch UI
    ```csharp
     public class FirstViewModel : ViewModelBase
     {
@@ -121,6 +125,10 @@ MvvmNavigation supports Unity out of the box.
         }
     }
    ```
+
+## Nuget package for ViewModel layer project
+
+If you have separated project for ViewModel layer, use [MvvmNavigation.Abstractions](https://www.nuget.org/packages/MvvmNavigation.Abstractions/) for it. It contains nessasary interfaces for navigation management such as INavigationManager.
 
 ## Samples
 
