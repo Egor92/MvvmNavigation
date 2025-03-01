@@ -39,7 +39,7 @@ namespace Egor92.MvvmNavigation.Core.ContractTests.InternalTests
         [Test]
         [SuppressMessage("ReSharper", "AssignNullToNotNullAttribute")]
         [SuppressMessage("ReSharper", "ConvertToLocalFunction")]
-        public void Add_NavigationDataIsNull_ThrowException()
+        public void Add_RegistrationDataIsNull_ThrowException()
         {
             //Arrange
             const string key = "key";
@@ -51,7 +51,7 @@ namespace Egor92.MvvmNavigation.Core.ContractTests.InternalTests
             };
 
             //Assert
-            Assert.That(action, ThrowsException.NullArgument(ArgumentNames.NavigationData));
+            Assert.That(action, ThrowsException.NullArgument(ArgumentNames.RegistrationData));
         }
 
         [Test]
