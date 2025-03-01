@@ -19,6 +19,6 @@ namespace Egor92.MvvmNavigation
 
         T InvokeInUiThread<T>([NotNull] object control, [NotNull] Func<T> action);
 
-        Task<T> InvokeInUiThreadAsync<T>([NotNull] object control, [NotNull] Func<T> action, CancellationToken token);
+        Task<T> InvokeInUiThreadAsync<T>([NotNull] object control, [NotNull] Func<Task<T>> action, CancellationToken token);
     }
 }

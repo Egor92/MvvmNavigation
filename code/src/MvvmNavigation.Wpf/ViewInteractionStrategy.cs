@@ -124,7 +124,7 @@ namespace Egor92.MvvmNavigation
             }
         }
 
-        public Task<T> InvokeInUiThreadAsync<T>(object control, Func<T> action, CancellationToken token)
+        public async Task<T> InvokeInUiThreadAsync<T>(object control, Func<Task<T>> action, CancellationToken token)
         {
             if (control == null)
             {
@@ -144,12 +144,11 @@ namespace Egor92.MvvmNavigation
             var dispatcher = dispatcherObject.Dispatcher;
             if (dispatcher == null || dispatcher.CheckAccess())
             {
-                return Task.FromResult(action());
+                return await action();
             }
             else
             {
-                var dispatcherOperation = dispatcher.InvokeAsync(action, DispatcherPriority.Normal);
-                return dispatcherOperation.Task;
+                return await await dispatcher.InvokeAsync(action, DispatcherPriority.Normal);
             }
         }
     }
