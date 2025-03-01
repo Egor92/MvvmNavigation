@@ -234,6 +234,23 @@ namespace Egor92.MvvmNavigation.Core.ContractTests
             viewModel.Verify(x => x.OnNavigatedTo(navigationArg), Times.Once);
         }
 
+        [Test]
+        [TestCaseSource(nameof(NavigatedTo_TestCaseSource))]
+        public void Navigate_ViewModelIsIAsyncNavigatedToAware_InvokeNavigatedToAsync(object navigationArg,
+                                                                                      Action<INavigationManager, string, object> navigate)
+        {
+            //Arrange
+            var navigationKey = "navigationKey";
+            var viewModel = new Mock<IAsyncNavigatedToAware>();
+            RegisterNavigationRule(_navigationManager, navigationKey, () => viewModel.Object, () => _view);
+
+            //Act
+            navigate(_navigationManager, navigationKey, navigationArg);
+
+            //Assert
+            viewModel.Verify(x => x.OnNavigatedToAsync(navigationArg), Times.Once);
+        }
+
         [SuppressMessage("ReSharper", "RedundantArgumentDefaultValue")]
         [SuppressMessage("ReSharper", "MemberCanBePrivate.Global")]
         public static TestCaseData[] NavigatedTo_TestCaseSource()
@@ -275,6 +292,26 @@ namespace Egor92.MvvmNavigation.Core.ContractTests
 
             //Assert
             viewModel.Verify(x => x.OnNavigatingFrom(), Times.Once);
+        }
+
+        [Test]
+        public void Navigate_ViewModelIsIAsyncNavigatingFromAware_NavigatingFromAsyncIsCalled()
+        {
+            //Arrange
+            var navigationKey1 = "navigationKey1";
+            var navigationKey2 = "navigationKey2";
+            var viewModel = new Mock<IAsyncNavigatingFromAware>();
+            viewModel.Setup(x => x.OnNavigatingFromAsync())
+                     .Verifiable();
+            RegisterNavigationRule(_navigationManager, navigationKey1, () => viewModel.Object, () => _view);
+            RegisterNavigationRule(_navigationManager, navigationKey2, () => new object(), () => _view);
+
+            //Act
+            _navigationManager.Navigate(navigationKey1);
+            _navigationManager.Navigate(navigationKey2);
+
+            //Assert
+            viewModel.Verify(x => x.OnNavigatingFromAsync(), Times.Once);
         }
 
         [Test]

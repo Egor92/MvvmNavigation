@@ -59,9 +59,9 @@ jobs:
 
         dotnet build --configuration Release --no-restore //p:AssemblyVersion=$ASSEMBLY_VERSION //p:AssemblyFileVersion=$ASSEMBLY_FILE_VERSION //p:AssemblyInformationalVersion=$ASSEMBLY_INFORMATIONAL_VERSION
 
-    #- name: Run tests
-    #  working-directory: ./code # Указываем папку с решением
-    #  run: dotnet test --no-restore --verbosity normal
+    - name: Run tests
+      working-directory: ./code # Указываем папку с решением
+      run: dotnet test --no-restore --verbosity normal
 
     - name: Pack NuGet package
       working-directory: ./code # Указываем папку с решением

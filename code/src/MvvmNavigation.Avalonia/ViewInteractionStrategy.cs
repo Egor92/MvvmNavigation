@@ -91,10 +91,11 @@ namespace Egor92.MvvmNavigation
 
         public T InvokeInUiThread<T>(object control, Func<T> action)
         {
-            return InvokeInUiThreadAsync(control, action, default).GetAwaiter().GetResult();
+            var task = InvokeInUiThreadAsync(control, async () => action(), default);
+            return task.GetAwaiter().GetResult();
         }
 
-        public Task<T> InvokeInUiThreadAsync<T>(object control, Func<T> action, CancellationToken token)
+        public async Task<T> InvokeInUiThreadAsync<T>(object control, Func<Task<T>> action, CancellationToken token)
         {
             if (control == null)
             {
@@ -109,11 +110,11 @@ namespace Egor92.MvvmNavigation
             var dispatcher = Dispatcher.UIThread;
             if (dispatcher == null || dispatcher.CheckAccess())
             {
-                return Task.FromResult(action());
+                return await action();
             }
             else
             {
-                return dispatcher.InvokeAsync(action);
+                return await dispatcher.InvokeAsync(action);
             }
         }
     }

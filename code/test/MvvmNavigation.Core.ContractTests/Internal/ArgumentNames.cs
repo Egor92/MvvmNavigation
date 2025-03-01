@@ -3,7 +3,7 @@
     public static class ArgumentNames
     {
         public const string Key = "key";
-        public const string NavigationData = "navigationData";
+        public const string RegistrationData = "registrationData";
         public const string Control = "control";
         public const string Action = "action";
         public const string NavigationKey = "navigationKey";
