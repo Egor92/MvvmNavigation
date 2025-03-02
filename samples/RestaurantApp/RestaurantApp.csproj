@@ -5,9 +5,9 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
   
-  <ItemGroup Condition="!$(SolutionFileName.Contains('Dev'))">
-    <PackageReference Include="MvvmNavigation.Wpf" Version="3.4.1" />
-  </ItemGroup>
+<!--  <ItemGroup Condition="!$(SolutionFileName.Contains('Dev'))">-->
+<!--    <PackageReference Include="MvvmNavigation.Wpf" Version="3.4.1" />-->
+<!--  </ItemGroup>-->
 
   <ItemGroup Condition="$(SolutionFileName.Contains('Dev'))">
     <ProjectReference Include="..\..\code\src\MvvmNavigation.Abstractions\MvvmNavigation.Abstractions.csproj" />

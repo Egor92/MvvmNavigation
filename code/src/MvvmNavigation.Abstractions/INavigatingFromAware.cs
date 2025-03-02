@@ -2,6 +2,6 @@
 {
     public interface INavigatingFromAware
     {
-        void OnNavigatingFrom();
+        void OnNavigatingFrom(object arg);
     }
 }

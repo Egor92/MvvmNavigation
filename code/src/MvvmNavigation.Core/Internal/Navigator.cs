@@ -57,40 +57,37 @@ namespace Egor92.MvvmNavigation.Internal
         public NavigationData Navigate(string navigationKey, object arg)
         {
             EnsureKeyIsCorrect(navigationKey);
-            return InvokeInUiThread(() => { return NavigateInternalAsync(navigationKey, arg).GetAwaiter().GetResult(); });
+            return InvokeInUiThread(() =>
+            {
+                InvokeNavigatingFrom(arg);
+                InvokeNavigatingFromAsync(arg, CancellationToken.None);
+                
+                var navigationData = NavigateInternal(navigationKey);
+
+                InvokeNavigatedTo(arg);
+                InvokeNavigatedToAsync(arg, CancellationToken.None);
+
+                return navigationData;
+            });
         }
 
+        [SuppressMessage("ReSharper", "MethodHasAsyncOverloadWithCancellation")]
         public Task<NavigationData> NavigateAsync(string navigationKey, object arg, CancellationToken token = default)
         {
             EnsureKeyIsCorrect(navigationKey);
 
-            return InvokeInUiThreadAsync(() => { return NavigateInternalAsync(navigationKey, arg); }, token);
-        }
-
-        private void EnsureKeyIsCorrect(string navigationKey)
-        {
-            if (navigationKey == null)
-                throw new ArgumentNullException(nameof(navigationKey));
-
-            var isKeyRegistered = CanNavigate(navigationKey);
-            if (!isKeyRegistered)
-                throw new InvalidOperationException(ExceptionMessages.KeyIsNotRegistered(navigationKey));
-        }
-
-        private async Task<NavigationData> NavigateInternalAsync(string navigationKey, object arg)
-        {
-            await InvokeNavigatingFromAsync().ConfigureAwait(false);
-            var viewModel = GetViewModel(navigationKey);
-
-            var view = CreateView(navigationKey, viewModel);
-            _viewInteractionStrategy.SetContent(_frameControl, view);
-            await InvokeNavigatedToAsync(viewModel, arg).ConfigureAwait(false);
-
-            return new NavigationData
+            return InvokeInUiThreadAsync(async () =>
             {
-                View = view,
-                ViewModel = viewModel
-            };
+                InvokeNavigatingFrom(arg);
+                await InvokeNavigatingFromAsync(arg, token);
+                
+                var navigationData = NavigateInternal(navigationKey);
+
+                InvokeNavigatedTo(arg);
+                await InvokeNavigatedToAsync(arg, token);
+
+                return navigationData;
+            }, token);
         }
 
         public NavigationData Navigate([NotNull] object view)
@@ -129,6 +126,29 @@ namespace Egor92.MvvmNavigation.Internal
             }, token);
         }
 
+        private void EnsureKeyIsCorrect(string navigationKey)
+        {
+            if (navigationKey == null)
+                throw new ArgumentNullException(nameof(navigationKey));
+
+            var isKeyRegistered = CanNavigate(navigationKey);
+            if (!isKeyRegistered)
+                throw new InvalidOperationException(ExceptionMessages.KeyIsNotRegistered(navigationKey));
+        }
+
+        private NavigationData NavigateInternal(string navigationKey)
+        {
+            var viewModel = GetViewModel(navigationKey);
+            var view = CreateView(navigationKey, viewModel);
+            _viewInteractionStrategy.SetContent(_frameControl, view);
+            var navigationData = new NavigationData
+            {
+                View = view,
+                ViewModel = viewModel
+            };
+            return navigationData;
+        }
+
         private T InvokeInUiThread<T>(Func<T> action)
         {
             return _viewInteractionStrategy.InvokeInUiThread(_frameControl, action);
@@ -157,32 +177,67 @@ namespace Egor92.MvvmNavigation.Internal
             return navigationData.ViewModelFunc();
         }
 
-        private async Task InvokeNavigatingFromAsync()
+        private void InvokeNavigatingFrom(object arg)
         {
-            var oldView = _viewInteractionStrategy.GetContent(_frameControl);
-            if (oldView != null)
+            InvokeForViewAndViewModel<INavigatingFromAware>(x => x.OnNavigatingFrom(arg));
+        }
+
+        private void InvokeNavigatedTo(object arg)
+        {
+            InvokeForViewAndViewModel<INavigatedToAware>(x => x.OnNavigatedTo(arg));
+        }
+
+        private Task InvokeNavigatingFromAsync(object arg, CancellationToken token)
+        {
+            return InvokeForViewAndViewModelAsync<IAsyncNavigatingFromAware>(x => x.OnNavigatingFromAsync(arg, token));
+        }
+
+        private Task InvokeNavigatedToAsync(object arg, CancellationToken token)
+        {
+            return InvokeForViewAndViewModelAsync<IAsyncNavigatedToAware>(x => x.OnNavigatedToAsync(arg, token));
+        }
+
+        private void InvokeForViewAndViewModel<T>(Action<T> action)
+        {
+            var (view, viewModel) = GetViewAndViewModel();
+            Invoke(view);
+            Invoke(viewModel);
+            return;
+
+            void Invoke(object target)
             {
-                var oldViewModel = _viewInteractionStrategy.GetDataContext(oldView);
-
-                var navigatingFromAware = oldViewModel as INavigatingFromAware;
-                navigatingFromAware?.OnNavigatingFrom();
-
-                if (oldViewModel is IAsyncNavigatingFromAware asyncNavigatingFromAware)
+                if (target is T t)
                 {
-                    await asyncNavigatingFromAware.OnNavigatingFromAsync().ConfigureAwait(false);
+                    action(t);
                 }
             }
         }
 
-        private static async Task InvokeNavigatedToAsync(object viewModel, object arg)
+        private async Task InvokeForViewAndViewModelAsync<T>(Func<T, Task> action)
         {
-            var navigatedToAware = viewModel as INavigatedToAware;
-            navigatedToAware?.OnNavigatedTo(arg);
+            var (view, viewModel) = GetViewAndViewModel();
+            await InvokeAsync(view).ConfigureAwait(false);
+            await InvokeAsync(viewModel).ConfigureAwait(false);
+            return;
 
-            if (viewModel is IAsyncNavigatedToAware asyncNavigatedToAware)
+            Task InvokeAsync(object target)
             {
-                await asyncNavigatedToAware.OnNavigatedToAsync(arg).ConfigureAwait(false);
+                if (target is T t)
+                {
+                    return action(t);
+                }
+
+                return Task.CompletedTask;
             }
+        }
+
+        private (object view, object viewModel) GetViewAndViewModel()
+        {
+            var view = _viewInteractionStrategy.GetContent(_frameControl);
+            var viewModel = view is not null
+                ? _viewInteractionStrategy.GetDataContext(view)
+                : null;
+            return (view, viewModel);
         }
     }
 }
