@@ -6,10 +6,10 @@
     <UseWpf>True</UseWpf>
   </PropertyGroup>
 
-<!--  <ItemGroup Condition="!$(SolutionFileName.Contains('Dev'))">-->
-<!--    <PackageReference Include="MvvmNavigation.Unity" Version="3.4.1" />-->
-<!--    <PackageReference Include="MvvmNavigation.Wpf" Version="3.4.1" />-->
-<!--  </ItemGroup>-->
+  <ItemGroup Condition="!$(SolutionFileName.Contains('Dev'))">
+    <PackageReference Include="MvvmNavigation.Unity" Version="3.4.1" />
+    <PackageReference Include="MvvmNavigation.Wpf" Version="3.4.1" />
+  </ItemGroup>
 
   <ItemGroup Condition="$(SolutionFileName.Contains('Dev'))">
     <PackageReference Include="Unity" Version="5.11.7" />
