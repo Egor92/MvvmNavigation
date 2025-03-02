@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net8.0-windows</TargetFramework>
@@ -6,11 +6,19 @@
     <UseWpf>True</UseWpf>
   </PropertyGroup>
 
-  <ItemGroup>
+  <ItemGroup Condition="!$(SolutionFileName.Contains('Dev'))">
     <PackageReference Include="MvvmNavigation.Unity" Version="3.4.1" />
     <PackageReference Include="MvvmNavigation.Wpf" Version="3.4.1" />
   </ItemGroup>
 
+  <ItemGroup Condition="$(SolutionFileName.Contains('Dev'))">
+    <PackageReference Include="Unity" Version="5.11.7" />
+    <ProjectReference Include="..\..\code\src\MvvmNavigation.Unity\MvvmNavigation.Unity.csproj" />
+    <ProjectReference Include="..\..\code\src\MvvmNavigation.Abstractions\MvvmNavigation.Abstractions.csproj" />
+    <ProjectReference Include="..\..\code\src\MvvmNavigation.Core\MvvmNavigation.Core.csproj" />
+    <ProjectReference Include="..\..\code\src\MvvmNavigation.Wpf\MvvmNavigation.Wpf.csproj" />
+  </ItemGroup>
+  
   <ItemGroup>
     <ProjectReference Include="..\Samples.Common\Samples.Common.csproj" />
   </ItemGroup>

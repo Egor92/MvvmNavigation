@@ -1,14 +1,18 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net8.0-windows</TargetFramework>
     <OutputType>WinExe</OutputType>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
-  
-  <ItemGroup>
-    <PackageReference Include="MvvmNavigation.Abstractions" Version="3.0.1" />
-    <PackageReference Include="MvvmNavigation.Core" Version="3.4.1" />
+
+  <ItemGroup Condition="!$(SolutionFileName.Contains('Dev'))">
     <PackageReference Include="MvvmNavigation.Wpf" Version="3.4.1" />
+  </ItemGroup>
+
+  <ItemGroup Condition="$(SolutionFileName.Contains('Dev'))">
+    <ProjectReference Include="..\..\code\src\MvvmNavigation.Abstractions\MvvmNavigation.Abstractions.csproj" />
+    <ProjectReference Include="..\..\code\src\MvvmNavigation.Core\MvvmNavigation.Core.csproj" />
+    <ProjectReference Include="..\..\code\src\MvvmNavigation.Wpf\MvvmNavigation.Wpf.csproj" />
   </ItemGroup>
   
   <ItemGroup>
