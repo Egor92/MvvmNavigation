@@ -248,7 +248,7 @@ namespace Egor92.MvvmNavigation.Core.ContractTests
             navigate(_navigationManager, navigationKey, navigationArg);
 
             //Assert
-            viewModel.Verify(x => x.OnNavigatedToAsync(navigationArg), Times.Once);
+            viewModel.Verify(x => x.OnNavigatedToAsync(navigationArg, It.IsAny<CancellationToken>()), Times.Once);
         }
 
         [SuppressMessage("ReSharper", "RedundantArgumentDefaultValue")]
@@ -281,37 +281,40 @@ namespace Egor92.MvvmNavigation.Core.ContractTests
             var navigationKey1 = "navigationKey1";
             var navigationKey2 = "navigationKey2";
             var viewModel = new Mock<INavigatingFromAware>();
-            viewModel.Setup(x => x.OnNavigatingFrom())
+            var arg = new object();
+            viewModel.Setup(x => x.OnNavigatingFrom(arg))
                      .Verifiable();
             RegisterNavigationRule(_navigationManager, navigationKey1, () => viewModel.Object, () => _view);
             RegisterNavigationRule(_navigationManager, navigationKey2, () => new object(), () => _view);
 
             //Act
             _navigationManager.Navigate(navigationKey1);
-            _navigationManager.Navigate(navigationKey2);
+            _navigationManager.Navigate(navigationKey2, arg);
 
             //Assert
-            viewModel.Verify(x => x.OnNavigatingFrom(), Times.Once);
+            viewModel.Verify(x => x.OnNavigatingFrom(arg), Times.Once);
         }
 
         [Test]
-        public void Navigate_ViewModelIsIAsyncNavigatingFromAware_NavigatingFromAsyncIsCalled()
+        public async Task Navigate_ViewModelIsIAsyncNavigatingFromAware_NavigatingFromAsyncIsCalled()
         {
             //Arrange
             var navigationKey1 = "navigationKey1";
             var navigationKey2 = "navigationKey2";
             var viewModel = new Mock<IAsyncNavigatingFromAware>();
-            viewModel.Setup(x => x.OnNavigatingFromAsync())
+            var arg = new object();
+            viewModel.Setup(x => x.OnNavigatingFromAsync(arg, It.IsAny<CancellationToken>()))
                      .Verifiable();
             RegisterNavigationRule(_navigationManager, navigationKey1, () => viewModel.Object, () => _view);
             RegisterNavigationRule(_navigationManager, navigationKey2, () => new object(), () => _view);
 
             //Act
             _navigationManager.Navigate(navigationKey1);
-            _navigationManager.Navigate(navigationKey2);
+            _navigationManager.Navigate(navigationKey2, arg);
+            await Task.Delay(100);
 
             //Assert
-            viewModel.Verify(x => x.OnNavigatingFromAsync(), Times.Once);
+            viewModel.Verify(x => x.OnNavigatingFromAsync(arg, It.IsAny<CancellationToken>()), Times.Once);
         }
 
         [Test]

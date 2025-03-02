@@ -22,12 +22,12 @@
                 <DataTemplate DataType="{x:Type models:Food}">
                     <StackPanel>
                         <TextBlock>
-                            <Run Text="Название: " />
+                            <Run Text="Dish name: " />
                             <Run FontWeight="Bold"
                                  Text="{Binding Name, Mode=OneWay}" />
                         </TextBlock>
                         <TextBlock>
-                            <Run Text="Стоимость: " />
+                            <Run Text="Price: " />
                             <Run FontWeight="Bold"
                                  Text="{Binding Price, Mode=OneWay}" />
                             <Run FontWeight="Bold"
@@ -41,7 +41,7 @@
         <Button Grid.Row="1"
                 Command="{Binding CookFoodCommand}">
             <TextBlock>
-                <Run Text="Заказать" />
+                <Run Text="Order" />
                 <Run Text="{Binding SelectedFood.Name, Mode=OneWay}" />
             </TextBlock>
         </Button>

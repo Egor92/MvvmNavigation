@@ -12,9 +12,9 @@
         <StackPanel HorizontalAlignment="Stretch"
                     VerticalAlignment="Center">
             <TextBlock TextAlignment="Center">
-                <Run Text="Блюдо" />
+                <Run Text="The dish " />
                 <Run Text="{Binding Food.Name, Mode=OneWay}" />
-                <Run Text="готовится" />
+                <Run Text="is being cooked" />
             </TextBlock>
 
             <ProgressBar Height="24"

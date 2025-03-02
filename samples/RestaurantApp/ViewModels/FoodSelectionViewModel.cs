@@ -1,82 +1,42 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using System.Reactive.Linq;
+using System.Windows.Input;
 using Egor92.MvvmNavigation.Abstractions;
+using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
 using RestaurantApp.Constants;
 using RestaurantApp.Infrastructure.Implementations;
 using RestaurantApp.Models;
-using Samples.Common;
 
 namespace RestaurantApp.ViewModels
 {
-    public class FoodSelectionViewModel : ViewModelBase, INavigatedToAware
+    public class FoodSelectionViewModel(INavigationManager navigationManager, DialogManager dialogManager)
+        : ReactiveObject, INavigatedToAware
     {
-        #region Fields
+        [Reactive]
+        public Food[] Foods { get; set; }
 
-        private readonly INavigationManager _navigationManager;
-        private readonly DialogManager _dialogManager;
-
-        #endregion
-
-        #region Ctor
-
-        public FoodSelectionViewModel(INavigationManager navigationManager, DialogManager dialogManager)
-        {
-            _navigationManager = navigationManager;
-            _dialogManager = dialogManager;
-        }
-
-        #endregion
-
-        #region Properties
-
-        #region Foods
-
-        private Food[] _foods;
-
-        public Food[] Foods
-        {
-            get { return _foods; }
-            private set { SetProperty(ref _foods, value); }
-        }
-
-        #endregion
-
-        #region SelectedFood
-
-        private Food _selectedFood;
-
-        public Food SelectedFood
-        {
-            get { return _selectedFood; }
-            set
-            {
-                SetProperty(ref _selectedFood, value);
-                CookFoodCommand.RaiseCanExecuteChanged();
-            }
-        }
-
-        #endregion
+        [Reactive]
+        public Food SelectedFood { get; set; }
 
         #region CookFoodCommand
 
-        private DelegateCommand _cookFoodCommand;
+        private ICommand _cookFoodCommand;
 
-        public DelegateCommand CookFoodCommand
+        public ICommand CookFoodCommand => _cookFoodCommand ??= ReactiveCommand.Create(CookFood, WhenCanCookFoodChanged());
+
+        private IObservable<bool> WhenCanCookFoodChanged()
         {
-            get { return _cookFoodCommand ?? (_cookFoodCommand = new DelegateCommand(CookFood, CanCookFood)); }
+            return this.ObservableForProperty(x => x.SelectedFood)
+                .Select(x => x.Value != null);
         }
 
         private void CookFood()
         {
-            _dialogManager.ShowMessage($"Ваш заказ '{SelectedFood.Name}' отправлен к шеф-повару");
-            _navigationManager.Navigate(NavigationKeys.FoodCooking, SelectedFood);
+            dialogManager.ShowMessage($"Your order '{SelectedFood.Name}' has been sent to the chef.");
+            navigationManager.Navigate(NavigationKeys.FoodCooking, SelectedFood);
         }
-
-        private bool CanCookFood()
-        {
-            return SelectedFood != null;
-        }
-
-        #endregion
 
         #endregion
 
@@ -86,14 +46,14 @@ namespace RestaurantApp.ViewModels
         {
             Foods = new Food[]
             {
-                new Food("Борщ", 70),
-                new Food("Щи", 60),
-                new Food("Картофель", 30),
-                new Food("Рис", 25),
-                new Food("Макароны", 20),
-                new Food("Оливье", 45),
-                new Food("Чай", 15),
-                new Food("Компот", 20),
+                new Food("Borscht", 70),
+                new Food("Shchi", 60),
+                new Food("Potatoes", 30),
+                new Food("Rice", 25),
+                new Food("Pasta", 20),
+                new Food("Olivier Salad", 45),
+                new Food("Tea", 15),
+                new Food("Compote", 20)
             };
 
             SelectedFood = Foods.FirstOrDefault();
