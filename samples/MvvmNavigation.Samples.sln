@@ -7,7 +7,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Apps", "Apps", "{C2E400D5-6
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SinglePageApp", "SinglePageApp\SinglePageApp.csproj", "{6B865561-25C5-4192-B1C8-60E89864BA6F}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{86DDB864-BCB3-407C-B276-34766F27EB27}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{86DDB864-BCB3-407C-B276-34766F27EB27}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestaurantApp", "RestaurantApp\RestaurantApp.csproj", "{C7525398-2898-4AAD-93FA-2888A3A64CDC}"
 EndProject

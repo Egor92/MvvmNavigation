@@ -31,9 +31,9 @@ namespace RestaurantApp.ViewModels
             get { return _showFoodSelectionCommand ?? (_showFoodSelectionCommand = new DelegateCommand(ShowFoodSelection)); }
         }
 
-        private void ShowFoodSelection()
+        private async void ShowFoodSelection()
         {
-            _navigationManager.Navigate(NavigationKeys.FoodSelection);
+            await _navigationManager.NavigateAsync(NavigationKeys.FoodSelection);
         }
 
         #endregion

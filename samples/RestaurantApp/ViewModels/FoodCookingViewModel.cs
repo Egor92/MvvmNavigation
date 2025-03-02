@@ -8,7 +8,7 @@ using Samples.Common;
 
 namespace RestaurantApp.ViewModels
 {
-    public class FoodCookingViewModel : ViewModelBase, INavigatedToAware
+    public class FoodCookingViewModel : ViewModelBase, IAsyncNavigatedToAware
     {
         #region Fields
 
@@ -57,21 +57,18 @@ namespace RestaurantApp.ViewModels
 
         #region Implementation of INavigationAware
 
-        public void OnNavigatedTo(object arg)
+        public async Task OnNavigatedToAsync(object arg)
         {
-            Food = (Food) arg;
+            Food = (Food)arg;
 
-            Task.Run(() =>
+            for (int i = 0; i <= 100; i++)
             {
-                for (int i = 0; i <= 100; i++)
-                {
-                    CookingProgress = i;
-                    Thread.Sleep(50);
-                }
+                CookingProgress = i;
+                await Task.Delay(50);
+            }
 
-                _dialogManager.ShowMessage($"Ваше блюдо готово. Садитесь кушать {Food.Name}, пожалуйста");
-                _navigationManager.Navigate(NavigationKeys.FoodSelection);
-            });
+            _dialogManager.ShowMessage($"Ваше блюдо готово. Садитесь кушать {Food.Name}, пожалуйста");
+            _navigationManager.Navigate(NavigationKeys.FoodSelection);
         }
 
         #endregion
