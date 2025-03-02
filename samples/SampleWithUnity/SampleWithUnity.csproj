@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MvvmNavigation.Unity" Version="3.0.1" />
-    <PackageReference Include="MvvmNavigation.Wpf" Version="3.0.1" />
+    <PackageReference Include="MvvmNavigation.Unity" Version="3.4.1" />
+    <PackageReference Include="MvvmNavigation.Wpf" Version="3.4.1" />
   </ItemGroup>
 
   <ItemGroup>

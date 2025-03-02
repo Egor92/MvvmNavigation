@@ -6,9 +6,9 @@
   </PropertyGroup>
   
   <ItemGroup>
-    <PackageReference Include="MvvmNavigation.Abstractions" Version="3.4.0" />
-    <PackageReference Include="MvvmNavigation.Core" Version="3.4.0" />
-    <PackageReference Include="MvvmNavigation.Wpf" Version="3.4.0" />
+    <PackageReference Include="MvvmNavigation.Abstractions" Version="3.4.1" />
+    <PackageReference Include="MvvmNavigation.Core" Version="3.4.1" />
+    <PackageReference Include="MvvmNavigation.Wpf" Version="3.4.1" />
   </ItemGroup>
   
   <ItemGroup>
