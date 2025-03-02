@@ -289,7 +289,7 @@ namespace Egor92.MvvmNavigation.Core.ContractTests
 
             //Act
             _navigationManager.Navigate(navigationKey1);
-            _navigationManager.Navigate(navigationKey2);
+            _navigationManager.Navigate(navigationKey2, arg);
 
             //Assert
             viewModel.Verify(x => x.OnNavigatingFrom(arg), Times.Once);
@@ -310,7 +310,7 @@ namespace Egor92.MvvmNavigation.Core.ContractTests
 
             //Act
             _navigationManager.Navigate(navigationKey1);
-            _navigationManager.Navigate(navigationKey2);
+            _navigationManager.Navigate(navigationKey2, arg);
             await Task.Delay(100);
 
             //Assert
