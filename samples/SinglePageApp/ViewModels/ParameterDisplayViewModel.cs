@@ -1,36 +1,17 @@
 ﻿using System.Windows.Input;
 using Egor92.MvvmNavigation.Abstractions;
-using Samples.Common;
+using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
 using SinglePageApp.Constants;
 
 namespace SinglePageApp.ViewModels
 {
-    public class ParameterDisplayViewModel : ViewModelBase, INavigatedToAware
+    public class ParameterDisplayViewModel(INavigationManager navigationManager) : ReactiveObject, INavigatedToAware
     {
-        #region Fields
-
-        private readonly INavigationManager _navigationManager;
-
-        #endregion
-
-        #region Ctor
-
-        public ParameterDisplayViewModel(INavigationManager navigationManager)
-        {
-            _navigationManager = navigationManager;
-        }
-
-        #endregion
-
         #region PassedParameter
 
-        private string _passedParameter;
-
-        public string PassedParameter
-        {
-            get { return _passedParameter; }
-            set { SetProperty(ref _passedParameter, value); }
-        }
+        [Reactive] 
+        public string PassedParameter { get; set; }
 
         #endregion
 
@@ -38,14 +19,11 @@ namespace SinglePageApp.ViewModels
 
         private ICommand _startOverCommand;
 
-        public ICommand StartOverCommand
-        {
-            get { return _startOverCommand ?? (_startOverCommand = new DelegateCommand(ReturnBack)); }
-        }
+        public ICommand StartOverCommand => _startOverCommand ??= ReactiveCommand.Create(ReturnBack);
 
         private void ReturnBack()
         {
-            _navigationManager.Navigate(NavigationKeys.Welcome);
+            navigationManager.Navigate(NavigationKeys.Welcome);
         }
 
         #endregion
@@ -54,10 +32,10 @@ namespace SinglePageApp.ViewModels
 
         public void OnNavigatedTo(object arg)
         {
-            if (!(arg is string))
+            if (arg is not string str)
                 return;
 
-            PassedParameter = (string) arg;
+            PassedParameter = str;
         }
 
         #endregion

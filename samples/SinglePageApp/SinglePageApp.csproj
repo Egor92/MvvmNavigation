@@ -1,18 +1,22 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
+    <TargetFramework>net8.0-windows</TargetFramework>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net472</TargetFramework>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
-  
-  <ItemGroup>
-    <PackageReference Include="JetBrains.Annotations" Version="2019.1.3" />
-    <PackageReference Include="MvvmNavigation.Abstractions" Version="3.0.1" />
-    <PackageReference Include="MvvmNavigation.Core" Version="3.0.1" />
-    <PackageReference Include="MvvmNavigation.Wpf" Version="3.0.1" />
+
+  <ItemGroup Condition="!$(SolutionFileName.Contains('Dev'))">
+    <PackageReference Include="MvvmNavigation.Wpf" Version="3.4.1" />
   </ItemGroup>
-  
+
+  <ItemGroup Condition="$(SolutionFileName.Contains('Dev'))">
+    <ProjectReference Include="..\..\code\src\MvvmNavigation.Abstractions\MvvmNavigation.Abstractions.csproj" />
+    <ProjectReference Include="..\..\code\src\MvvmNavigation.Core\MvvmNavigation.Core.csproj" />
+    <ProjectReference Include="..\..\code\src\MvvmNavigation.Wpf\MvvmNavigation.Wpf.csproj" />
+  </ItemGroup>
+
   <ItemGroup>
-    <ProjectReference Include="..\Samples.Common\Samples.Common.csproj" />
+    <PackageReference Include="ReactiveUI.Fody" Version="19.5.41" />
+    <PackageReference Include="ReactiveUI.WPF" Version="20.1.63" />
   </ItemGroup>
 </Project>

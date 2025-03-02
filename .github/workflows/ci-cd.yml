@@ -98,6 +98,9 @@ jobs:
         ASSEMBLY_VERSION=${{ steps.calculate_versions.outputs.assembly_version }}
         echo "Assembly Version: $ASSEMBLY_VERSION"
 
+        git config --global user.email "actions@github.com"
+        git config --global user.name "Github Actions"
+  
         # Формируем имя тега
         TAG_NAME="release-$ASSEMBLY_VERSION"
         echo "Creating tag: $TAG_NAME"

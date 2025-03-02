@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:RestaurantApp.ViewModels"
-        Title="Меню ресторана 'Весёлая утка'"
+        Title="Menu of the 'Jolly Duck' restaurant"
         Width="370"
         Height="400"
         d:DataContext="{d:DesignInstance vm:MainWindowViewModel}"
@@ -22,7 +22,7 @@
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 Command="{Binding ShowFoodSelectionCommand}"
-                Content="Отобразить блюда нашего ресторана" />
+                Content="Show dishes of our restaurant" />
 
         <ContentControl x:Name="FrameContent"
                         Grid.Row="1"
