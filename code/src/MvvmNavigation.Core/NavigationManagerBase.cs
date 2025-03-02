@@ -65,7 +65,7 @@ namespace Egor92.MvvmNavigation
 
         public async Task<NavigationData> NavigateAsync(string navigationKey, object arg, CancellationToken token = default)
         {
-            var navigationData = await _navigator.NavigateAsync(navigationKey, arg, token);
+            var navigationData = await _navigator.NavigateAsync(navigationKey, arg, token).ConfigureAwait(false);
             var navigationEventArgs = new NavigationEventArgs(navigationData.View, navigationData.ViewModel, navigationKey, arg);
             SaveNavigationHistory(navigationData.ViewModel, navigationData.View);
             RaiseNavigated(navigationEventArgs);

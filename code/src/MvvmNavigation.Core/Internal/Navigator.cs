@@ -79,12 +79,12 @@ namespace Egor92.MvvmNavigation.Internal
 
         private async Task<NavigationData> NavigateInternalAsync(string navigationKey, object arg)
         {
-            await InvokeNavigatingFromAsync();
+            await InvokeNavigatingFromAsync().ConfigureAwait(false);
             var viewModel = GetViewModel(navigationKey);
 
             var view = CreateView(navigationKey, viewModel);
             _viewInteractionStrategy.SetContent(_frameControl, view);
-            await InvokeNavigatedToAsync(viewModel, arg);
+            await InvokeNavigatedToAsync(viewModel, arg).ConfigureAwait(false);
 
             return new NavigationData
             {
@@ -169,7 +169,7 @@ namespace Egor92.MvvmNavigation.Internal
 
                 if (oldViewModel is IAsyncNavigatingFromAware asyncNavigatingFromAware)
                 {
-                    await asyncNavigatingFromAware.OnNavigatingFromAsync();
+                    await asyncNavigatingFromAware.OnNavigatingFromAsync().ConfigureAwait(false);
                 }
             }
         }
@@ -181,7 +181,7 @@ namespace Egor92.MvvmNavigation.Internal
 
             if (viewModel is IAsyncNavigatedToAware asyncNavigatedToAware)
             {
-                await asyncNavigatedToAware.OnNavigatedToAsync(arg);
+                await asyncNavigatedToAware.OnNavigatedToAsync(arg).ConfigureAwait(false);
             }
         }
     }

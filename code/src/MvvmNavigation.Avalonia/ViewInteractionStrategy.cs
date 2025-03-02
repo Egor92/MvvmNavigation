@@ -110,11 +110,11 @@ namespace Egor92.MvvmNavigation
             var dispatcher = Dispatcher.UIThread;
             if (dispatcher == null || dispatcher.CheckAccess())
             {
-                return await action();
+                return await action().ConfigureAwait(false);
             }
             else
             {
-                return await dispatcher.InvokeAsync(action);
+                return await dispatcher.InvokeAsync(action).ConfigureAwait(false);
             }
         }
     }

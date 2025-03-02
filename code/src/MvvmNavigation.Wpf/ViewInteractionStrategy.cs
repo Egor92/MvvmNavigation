@@ -144,11 +144,12 @@ namespace Egor92.MvvmNavigation
             var dispatcher = dispatcherObject.Dispatcher;
             if (dispatcher == null || dispatcher.CheckAccess())
             {
-                return await action();
+                return await action().ConfigureAwait(false);
             }
             else
             {
-                return await await dispatcher.InvokeAsync(action, DispatcherPriority.Normal);
+                var task = await dispatcher.InvokeAsync(action, DispatcherPriority.Normal).Task.ConfigureAwait(false);
+                return await task.ConfigureAwait(false);
             }
         }
     }
