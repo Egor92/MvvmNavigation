@@ -14,8 +14,9 @@
     <ProjectReference Include="..\..\code\src\MvvmNavigation.Core\MvvmNavigation.Core.csproj" />
     <ProjectReference Include="..\..\code\src\MvvmNavigation.Wpf\MvvmNavigation.Wpf.csproj" />
   </ItemGroup>
-  
+
   <ItemGroup>
-    <ProjectReference Include="..\Samples.Common\Samples.Common.csproj" />
+    <PackageReference Include="ReactiveUI.Fody" Version="19.5.41" />
+    <PackageReference Include="ReactiveUI.WPF" Version="20.1.63" />
   </ItemGroup>
 </Project>
