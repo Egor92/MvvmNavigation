@@ -30,7 +30,7 @@ namespace RestaurantApp.ViewModels
                 await Task.Delay(50, token);
             }
 
-            dialogManager.ShowMessage($"Ваше блюдо готово. Садитесь кушать {Food.Name}, пожалуйста");
+            dialogManager.ShowMessage($"Your dish is ready. Please sit down and enjoy your {Food.Name}.");
             navigationManager.Navigate(NavigationKeys.FoodSelection);
         }
 

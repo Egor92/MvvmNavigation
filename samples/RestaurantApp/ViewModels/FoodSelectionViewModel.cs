@@ -34,7 +34,7 @@ namespace RestaurantApp.ViewModels
 
         private void CookFood()
         {
-            dialogManager.ShowMessage($"Ваш заказ '{SelectedFood.Name}' отправлен к шеф-повару");
+            dialogManager.ShowMessage($"Your order '{SelectedFood.Name}' has been sent to the chef.");
             navigationManager.Navigate(NavigationKeys.FoodCooking, SelectedFood);
         }
 
@@ -46,14 +46,14 @@ namespace RestaurantApp.ViewModels
         {
             Foods = new Food[]
             {
-                new Food("Борщ", 70),
-                new Food("Щи", 60),
-                new Food("Картофель", 30),
-                new Food("Рис", 25),
-                new Food("Макароны", 20),
-                new Food("Оливье", 45),
-                new Food("Чай", 15),
-                new Food("Компот", 20),
+                new Food("Borscht", 70),
+                new Food("Shchi", 60),
+                new Food("Potatoes", 30),
+                new Food("Rice", 25),
+                new Food("Pasta", 20),
+                new Food("Olivier Salad", 45),
+                new Food("Tea", 15),
+                new Food("Compote", 20)
             };
 
             SelectedFood = Foods.FirstOrDefault();
