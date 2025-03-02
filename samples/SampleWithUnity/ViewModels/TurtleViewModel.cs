@@ -1,43 +1,25 @@
 ﻿using System.Windows.Input;
 using Egor92.MvvmNavigation.Abstractions;
-using Samples.Common;
+using ReactiveUI;
 
 namespace SampleWithUnity.ViewModels
 {
-    public abstract class TurtleViewModel
+    public abstract class TurtleViewModel(INavigationManager navigationManager)
     {
-        private readonly INavigationManager _navigationManager;
-
-        protected TurtleViewModel(INavigationManager navigationManager)
-        {
-            _navigationManager = navigationManager;
-        }
-
-        #region Name
-
         public abstract string Name { get; }
 
-        #endregion
-
-        #region Color
-
         public abstract string Color { get; }
-
-        #endregion
 
         #region SelectAnotherTurtleCommand
 
         private ICommand _selectAnotherTurtleCommand;
 
-        public ICommand SelectAnotherTurtleCommand
-        {
-            get { return _selectAnotherTurtleCommand ?? (_selectAnotherTurtleCommand = new DelegateCommand(SelectAnotherTurtle)); }
-        }
+        public ICommand SelectAnotherTurtleCommand => _selectAnotherTurtleCommand ??= ReactiveCommand.Create(SelectAnotherTurtle);
 
         private void SelectAnotherTurtle()
         {
             var nextNavigationKey = RandomViewSelector.GetNextNavigationKey();
-            _navigationManager.Navigate(nextNavigationKey);
+            navigationManager.Navigate(nextNavigationKey);
         }
 
         #endregion
