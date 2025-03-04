@@ -216,6 +216,38 @@ namespace Egor92.MvvmNavigation.Core.ContractTests
             var dataContext = GetDataContext(view);
             Assert.That(dataContext, Is.EqualTo(viewModel));
         }
+        
+        [Test]
+        public void Navigate_KeyIsRegistered_ReturnViewAndViewModel()
+        {
+            //Arrange
+            var navigationKey = "navigationKey";
+            var viewModel = new object();
+            RegisterNavigationRule(_navigationManager, navigationKey, () => viewModel, () => _view);
+
+            //Act
+            var navigationData = _navigationManager.Navigate(navigationKey);
+
+            //Assert
+            Assert.That(navigationData.View, Is.EqualTo(_view));
+            Assert.That(navigationData.ViewModel, Is.EqualTo(viewModel));
+        }
+
+        [Test]
+        public async Task NavigateAsync_KeyIsRegistered_ReturnViewAndViewModel()
+        {
+            //Arrange
+            var navigationKey = "navigationKey";
+            var viewModel = new object();
+            RegisterNavigationRule(_navigationManager, navigationKey, () => viewModel, () => _view);
+
+            //Act
+            var navigationData = await _navigationManager.NavigateAsync(navigationKey, null);
+
+            //Assert
+            Assert.That(navigationData.View, Is.EqualTo(_view));
+            Assert.That(navigationData.ViewModel, Is.EqualTo(viewModel));
+        }
 
         [Test]
         [TestCaseSource(nameof(NavigatedTo_TestCaseSource))]
