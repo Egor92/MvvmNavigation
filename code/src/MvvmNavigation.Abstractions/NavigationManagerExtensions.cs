@@ -6,9 +6,9 @@ namespace Egor92.MvvmNavigation.Abstractions
 {
     public static class NavigationManagerExtensions
     {
-        public static void Navigate(this INavigationManager navigationManager, [NotNull] string navigationKey)
+        public static NavigationData Navigate(this INavigationManager navigationManager, [NotNull] string navigationKey)
         {
-            navigationManager.Navigate(navigationKey, null);
+            return navigationManager.Navigate(navigationKey, null);
         }
 
         public static Task<NavigationData> NavigateAsync(
